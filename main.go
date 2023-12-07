@@ -87,8 +87,8 @@ func main() {
 
 	mux.Get("/hi", func(w http.ResponseWriter, r *http.Request) {
 		l := getLogger(r)
-		l.Info("hi")
-		w.Write([]byte("hi"))
+		l.Info("hi2")
+		w.Write([]byte("hi3"))
 	})
 
 	mux.Get("/panic", func(w http.ResponseWriter, r *http.Request) {
