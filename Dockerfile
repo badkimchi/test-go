@@ -16,6 +16,7 @@ COPY abcd ./
 WORKDIR /abcd
 RUN npm install
 RUN npm run build
+COPY . /.
 
 WORKDIR /app
 COPY go.mod go.sum ./
@@ -28,7 +29,6 @@ RUN CGO_ENABLED=0 go build -o /server
 FROM gcr.io/distroless/base-debian11 as final
 
 COPY --from=builder /server /server
-COPY --from=builder /abcd /abcd
 
 
 ENV PORT 3000
