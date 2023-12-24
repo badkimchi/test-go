@@ -4,8 +4,8 @@ WORKDIR /app
 COPY abcd ./
 WORKDIR /app/abcd
 
-RUN yarn install
-RUN yarn run build
+RUN npm install
+RUN npm run build
 
 WORKDIR /app
 

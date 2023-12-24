@@ -5,28 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5fab1d8-2444-4c93-b9d4-cec03e2162ba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/abcd/.eslintrc.cjs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/package-lock.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/public/vite.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/src/App.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/src/App.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/src/assets/react.svg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/src/index.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/src/main.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/src/vite-env.d.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/tsconfig.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/tsconfig.node.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/vite.config.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abcd/yarn.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/node_modules/.yarn-integrity" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/yarn.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
