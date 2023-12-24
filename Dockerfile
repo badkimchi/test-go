@@ -17,7 +17,7 @@ WORKDIR /abcd
 RUN npm install
 RUN npm run build
 COPY . /.
-RUN ls /
+RUN ls /abcd
 
 WORKDIR /app
 COPY go.mod go.sum ./
