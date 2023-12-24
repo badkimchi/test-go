@@ -16,7 +16,7 @@ COPY abcd /abcd
 WORKDIR /abcd
 RUN npm install
 RUN npm run build
-RUN ls /abcd
+RUN ls /abcd/dist
 
 WORKDIR /app
 RUN ls
@@ -30,7 +30,8 @@ RUN CGO_ENABLED=0 go build -o /server
 FROM gcr.io/distroless/base-debian11 as final
 
 COPY --from=builder /server /server
-
+RUN ls /abcd/dist
+RUN ls /
 
 ENV PORT 3000
 EXPOSE $PORT
