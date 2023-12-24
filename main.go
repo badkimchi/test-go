@@ -106,7 +106,7 @@ func main() {
 		panic(err)
 	}
 	workDir := filepath.Dir(ex)
-	basePath := path.Join(workDir, "dist")
+	basePath := path.Join(workDir, "abcd/dist")
 	mux.Get(
 		"/assets/*", func(w http.ResponseWriter, r *http.Request) {
 			fullFilePath := path.Join(basePath, r.URL.Path)
