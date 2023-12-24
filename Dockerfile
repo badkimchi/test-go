@@ -18,9 +18,6 @@ RUN npm install
 RUN npm run build
 RUN pwd
 
-COPY --from=builder /dist /dist
-RUN ls /dist
-
 WORKDIR /app
 COPY go.mod go.sum ./
 RUN go mod download
