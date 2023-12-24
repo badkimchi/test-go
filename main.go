@@ -11,6 +11,7 @@ import (
 	"os"
 	"os/signal"
 	"path"
+	"path/filepath"
 	"syscall"
 	"time"
 
@@ -100,10 +101,11 @@ func main() {
 		},
 	)
 
-	workDir, err := os.Getwd()
+	ex, err := os.Executable()
 	if err != nil {
-		return
+		panic(err)
 	}
+	workDir := filepath.Dir(ex)
 	basePath := path.Join(workDir, "abcd/dist")
 	mux.Get(
 		"/assets/*", func(w http.ResponseWriter, r *http.Request) {
