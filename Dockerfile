@@ -1,5 +1,8 @@
 FROM golang:1.21 as builder
 
+RUN curl -sL https://deb.nodesource.com/setup_20.x | bash
+RUN apt-get install -y nodejs
+
 WORKDIR /app
 COPY abcd ./
 WORKDIR /app/abcd
