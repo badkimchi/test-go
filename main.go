@@ -119,8 +119,8 @@ func main() {
 		"/", func(w http.ResponseWriter, r *http.Request) {
 			fullFilePath := path.Join(basePath, "index.html")
 			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-			http.ServeFile(w, r, fullFilePath)
-			//w.Write([]byte(fullFilePath))
+			//http.ServeFile(w, r, fullFilePath)
+			w.Write([]byte(fullFilePath))
 		},
 	)
 
