@@ -11,9 +11,9 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN node --version
 RUN npm --version
 
-WORKDIR /app
+WORKDIR /
 COPY abcd ./
-WORKDIR /app/abcd
+WORKDIR /abcd
 RUN npm install
 RUN npm run build
 
@@ -28,9 +28,8 @@ RUN CGO_ENABLED=0 go build -o /server
 FROM gcr.io/distroless/base-debian11 as final
 
 COPY --from=builder /server /server
+COPY --from=builder /abcd /abcd
 
-RUN pwd
-RUN ls /server
 
 ENV PORT 3000
 EXPOSE $PORT
