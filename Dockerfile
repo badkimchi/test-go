@@ -12,14 +12,14 @@ RUN node --version
 RUN npm --version
 
 WORKDIR /
-COPY abcd ./
+COPY abcd /abcd
 WORKDIR /abcd
 RUN npm install
 RUN npm run build
-COPY . /.
 RUN ls /abcd
 
 WORKDIR /app
+RUN ls
 COPY go.mod go.sum ./
 RUN go mod download
 
