@@ -11,17 +11,15 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN node --version
 RUN npm --version
 
-WORKDIR /
-COPY abcd /
-WORKDIR /abcd
-
+WORKDIR /app
+COPY abcd ./
+WORKDIR /app/abcd
 RUN npm install
 RUN npm run build
 RUN pwd
 RUN ls dist
 
 WORKDIR /app
-
 COPY go.mod go.sum ./
 RUN go mod download
 
