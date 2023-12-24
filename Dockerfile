@@ -19,7 +19,6 @@ RUN npm run build
 RUN ls /abcd/dist
 
 WORKDIR /app
-RUN ls
 COPY go.mod go.sum ./
 RUN go mod download
 
@@ -30,8 +29,7 @@ RUN CGO_ENABLED=0 go build -o /server
 FROM gcr.io/distroless/base-debian11 as final
 
 COPY --from=builder /server /server
-RUN ls /abcd/dist
-RUN ls /
+COPY --from=builder /abcd /abcd
 
 ENV PORT 3000
 EXPOSE $PORT
