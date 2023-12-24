@@ -28,7 +28,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+//
 	logger := newLogger(os.Stdout, cfg.logLevel)
 
 	otelShutdown, err := setupOTelSDK(context.Background(), cfg)
