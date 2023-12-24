@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="ALL" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="b5fab1d8-2444-4c93-b9d4-cec03e2162ba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/abcd/.eslintrc.cjs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/README.md" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/index.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/package-lock.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/package.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/public/vite.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/src/App.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/src/App.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/src/assets/react.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/src/index.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/src/main.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/src/vite-env.d.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/tsconfig.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/tsconfig.node.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/vite.config.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/abcd/yarn.lock" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/node_modules/.yarn-integrity" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="GOROOT" url="file://$USER_HOME$/go/go1.21.4" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2ZCPmSjY5ZSWdoDK5wqut1kARHl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.go.formatter.settings.were.checked": "true",
+    "RunOnceActivity.go.migrated.go.modules.settings": "true",
+    "RunOnceActivity.go.modules.go.list.on.any.changes.was.set": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "go.import.settings.migrated": "true",
+    "go.sdk.automatically.set": "true",
+    "last_opened_file_path": "/Users/sang/workspace/test-go",
+    "node.js.detected.package.eslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/sang/workspace/test-go/abcd/node_modules/typescript/lib"
+  }
+}]]></component>
+  <component name="RunManager" selected="Go Build.go build main.go">
+    <configuration name="go build github.com/dillonstreator/go-chi" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="test-go" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="PACKAGE" />
+      <package value="github.com/dillonstreator/go-chi" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="test-go" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <package value="github.com/dillonstreator/go-chi" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/abcd/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="dev" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Go Build.go build main.go" />
+        <item itemvalue="npm.dev" />
+        <item itemvalue="Go Build.go build github.com/dillonstreator/go-chi" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VgoProject">
+    <settings-migrated>true</settings-migrated>
+  </component>
+</project>

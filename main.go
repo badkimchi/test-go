@@ -10,6 +10,7 @@ import (
 	"net/http"
 	"os"
 	"os/signal"
+	"path"
 	"syscall"
 	"time"
 
@@ -28,7 +29,7 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-//
+
 	logger := newLogger(os.Stdout, cfg.logLevel)
 
 	otelShutdown, err := setupOTelSDK(context.Background(), cfg)
@@ -41,59 +42,90 @@ func main() {
 	mux.Use(middleware.Recoverer)
 	mux.Use(trustProxy(logger))
 	mux.Use(otelhttp.NewMiddleware("chi"))
-	mux.Use(func(h http.Handler) http.Handler {
-		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			start := time.Now()
+	mux.Use(
+		func(h http.Handler) http.Handler {
+			return http.HandlerFunc(
+				func(w http.ResponseWriter, r *http.Request) {
+					start := time.Now()
 
-			traceID := trace.SpanFromContext(r.Context()).SpanContext().TraceID()
-			var reqID string
+					traceID := trace.SpanFromContext(r.Context()).SpanContext().TraceID()
+					var reqID string
 
-			if id, err := uuid.Parse(r.Header.Get("x-request-id")); err == nil {
-				reqID = id.String()
-			} else {
-				reqID = uuid.NewString()
-			}
+					if id, err := uuid.Parse(r.Header.Get("x-request-id")); err == nil {
+						reqID = id.String()
+					} else {
+						reqID = uuid.NewString()
+					}
 
-			l := logger.With("reqId", reqID, "traceId", traceID)
+					l := logger.With("reqId", reqID, "traceId", traceID)
 
-			ww := middleware.NewWrapResponseWriter(w, 0)
-			rc := newByteReadCloser(r.Body)
-			r.Body = http.MaxBytesReader(w, rc, cfg.maxAllowedRequestBytes)
+					ww := middleware.NewWrapResponseWriter(w, 0)
+					rc := newByteReadCloser(r.Body)
+					r.Body = http.MaxBytesReader(w, rc, cfg.maxAllowedRequestBytes)
 
-			// overwrite `r`'s memory so that recoverer can access the log entry
-			*r = *setLogger(r, l)
-			*r = *middleware.WithLogEntry(r, newLogEntry(l))
+					// overwrite `r`'s memory so that recoverer can access the log entry
+					*r = *setLogger(r, l)
+					*r = *middleware.WithLogEntry(r, newLogEntry(l))
 
-			h.ServeHTTP(ww, r)
+					h.ServeHTTP(ww, r)
 
-			l.Info(
-				"Request handled",
-				slog.String("method", r.Method),
-				slog.String("method", r.Method),
-				slog.String("path", r.URL.Path),
-				slog.String("ua", r.UserAgent()),
-				slog.String("ip", r.RemoteAddr),
-				slog.Int("bw", ww.BytesWritten()),
-				slog.Int64("br", rc.BytesRead()),
-				slog.Int("status", ww.Status()),
-				slog.Duration("duration", time.Since(start)),
+					l.Info(
+						"Request handled",
+						slog.String("method", r.Method),
+						slog.String("method", r.Method),
+						slog.String("path", r.URL.Path),
+						slog.String("ua", r.UserAgent()),
+						slog.String("ip", r.RemoteAddr),
+						slog.Int("bw", ww.BytesWritten()),
+						slog.Int64("br", rc.BytesRead()),
+						slog.Int("status", ww.Status()),
+						slog.Duration("duration", time.Since(start)),
+					)
+				},
 			)
-		})
-	})
+		},
+	)
 
-	mux.Get(cfg.healthEndpoint, func(w http.ResponseWriter, r *http.Request) {
-		w.WriteHeader(http.StatusOK)
-	})
+	mux.Get(
+		cfg.healthEndpoint, func(w http.ResponseWriter, r *http.Request) {
+			w.WriteHeader(http.StatusOK)
+		},
+	)
 
-	mux.Get("/hi", func(w http.ResponseWriter, r *http.Request) {
-		l := getLogger(r)
-		l.Info(cfg.serviceName)
-		w.Write([]byte(cfg.serviceName))
-	})
+	mux.Get(
+		"/hi", func(w http.ResponseWriter, r *http.Request) {
+			l := getLogger(r)
+			l.Info(cfg.serviceName)
+			w.Write([]byte("hi"))
+		},
+	)
 
-	mux.Get("/panic", func(w http.ResponseWriter, r *http.Request) {
-		panic("testing panic recovery and logging")
-	})
+	workDir, err := os.Getwd()
+	if err != nil {
+		return
+	}
+	basePath := path.Join(workDir, "abcd/dist")
+	mux.Get(
+		"/assets/*", func(w http.ResponseWriter, r *http.Request) {
+			fullFilePath := path.Join(basePath, r.URL.Path)
+			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+			http.ServeFile(w, r, fullFilePath)
+		},
+	)
+
+	mux.Get(
+		"/", func(w http.ResponseWriter, r *http.Request) {
+			fullFilePath := path.Join(basePath, "index.html")
+			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+			http.ServeFile(w, r, fullFilePath)
+		},
+	)
+
+	mux.Get(
+		"/panic", func(w http.ResponseWriter, r *http.Request) {
+			panic("testing panic recovery and logging")
+		},
+	)
 
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", cfg.port),
