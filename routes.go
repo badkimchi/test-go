@@ -13,22 +13,22 @@ func defineRoutes(mux *chi.Mux, cfg *config) {
 	if err != nil {
 		panic(err)
 	}
+	defineStaticRoutes(mux)
+	mux.Get(cfg.healthEndpoint, handleHealthCheck)
+	mux.Get("/test", handlers.AuthC.TestGet)
+}
 
-	mux.Get(
-		cfg.healthEndpoint, func(w http.ResponseWriter, r *http.Request) {
-			w.WriteHeader(http.StatusOK)
-		},
-	)
-
+func defineStaticRoutes(mux *chi.Mux) {
 	ex, err := os.Executable()
 	if err != nil {
 		panic(err)
 	}
 	workDir := filepath.Dir(ex)
-	basePath := path.Join(workDir, "abcd/dist")
+	feDir := "frontend/dist"
+	feBasePath := path.Join(workDir, feDir)
 	mux.Get(
 		"/assets/*", func(w http.ResponseWriter, r *http.Request) {
-			fullFilePath := path.Join(basePath, r.URL.Path)
+			fullFilePath := path.Join(feBasePath, r.URL.Path)
 			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 			http.ServeFile(w, r, fullFilePath)
 		},
@@ -36,12 +36,14 @@ func defineRoutes(mux *chi.Mux, cfg *config) {
 
 	mux.Get(
 		"/", func(w http.ResponseWriter, r *http.Request) {
-			fullFilePath := path.Join(basePath, "index.html")
+			fullFilePath := path.Join(feBasePath, "index.html")
 			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
 			http.ServeFile(w, r, fullFilePath)
 			//w.Write([]byte(fullFilePath))
 		},
 	)
+}
 
-	mux.Get("/test", handlers.AuthC.TestGet)
+func handleHealthCheck(w http.ResponseWriter, r *http.Request) {
+	w.WriteHeader(http.StatusOK)
 }
