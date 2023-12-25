@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/NYTimes/gziphandler"
 	"github.com/go-chi/chi"
 	"github.com/go-chi/chi/middleware"
 	"io"
@@ -15,10 +16,10 @@ func getServer(logger *slog.Logger, cfg *config) *http.Server {
 	mux := chi.NewMux()
 	setMiddleware(mux, logger, cfg)
 	defineRoutes(mux, cfg)
-	//muxWithGzip := gziphandler.GzipHandler(mux)
+	muxWithGzip := gziphandler.GzipHandler(mux)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", cfg.port),
-		Handler: mux,
+		Handler: muxWithGzip,
 	}
 	return srv
 }

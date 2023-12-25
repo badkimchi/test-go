@@ -25,10 +25,8 @@ func requestLogger(logger *slog.Logger, cfg *config) func(handler http.Handler) 
 		return http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
 				start := time.Now()
-
 				traceID := trace.SpanFromContext(r.Context()).SpanContext().TraceID()
 				var reqID string
-
 				if id, err := uuid.Parse(r.Header.Get("x-request-id")); err == nil {
 					reqID = id.String()
 				} else {
@@ -36,17 +34,7 @@ func requestLogger(logger *slog.Logger, cfg *config) func(handler http.Handler) 
 				}
 
 				l := logger.With("reqId", reqID, "traceId", traceID)
-
-				ww := middleware.NewWrapResponseWriter(w, 0)
-				rc := newByteReadCloser(r.Body)
-				r.Body = http.MaxBytesReader(w, rc, cfg.maxAllowedRequestBytes)
-
-				// overwrite `r`'s memory so that recoverer can access the log entry
-				*r = *setLogger(r, l)
-				*r = *middleware.WithLogEntry(r, newLogEntry(l))
-
-				handler.ServeHTTP(ww, r)
-
+				handler.ServeHTTP(w, r)
 				l.Info(
 					"Request handled",
 					slog.String("method", r.Method),
@@ -54,9 +42,6 @@ func requestLogger(logger *slog.Logger, cfg *config) func(handler http.Handler) 
 					slog.String("path", r.URL.Path),
 					slog.String("ua", r.UserAgent()),
 					slog.String("ip", r.RemoteAddr),
-					slog.Int("bw", ww.BytesWritten()),
-					slog.Int64("br", rc.BytesRead()),
-					slog.Int("status", ww.Status()),
 					slog.Duration("duration", time.Since(start)),
 				)
 			},
