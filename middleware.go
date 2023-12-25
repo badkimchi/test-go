@@ -12,15 +12,15 @@ import (
 	"time"
 )
 
-func setMiddleware(mux *chi.Mux, logger *slog.Logger, cfg *config) {
+func setMiddleware(mux *chi.Mux, logger *slog.Logger) {
 	mux.Use(middleware.Recoverer)
 	mux.Use(trustProxy(logger))
 	mux.Use(otelhttp.NewMiddleware("chi"))
-	mux.Use(requestLogger(logger, cfg))
+	mux.Use(requestLogger(logger))
 	mux.Use(allowCORS())
 }
 
-func requestLogger(logger *slog.Logger, cfg *config) func(handler http.Handler) http.Handler {
+func requestLogger(logger *slog.Logger) func(handler http.Handler) http.Handler {
 	return func(handler http.Handler) http.Handler {
 		return http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {

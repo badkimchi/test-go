@@ -4,6 +4,8 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"github.com/NYTimes/gziphandler"
+	"github.com/go-chi/chi"
 	"log"
 	"log/slog"
 	"net/http"
@@ -26,7 +28,15 @@ func main() {
 		os.Exit(1)
 	}
 
-	srv := getServer(logger, cfg)
+	mux := chi.NewMux()
+	setMiddleware(mux, logger)
+	defineRoutes(mux, cfg)
+	muxWithGzip := gziphandler.GzipHandler(mux)
+	srv := &http.Server{
+		Addr:    fmt.Sprintf(":%d", cfg.port),
+		Handler: muxWithGzip,
+	}
+
 	go func() {
 		if err := srv.ListenAndServe(); err != nil && !errors.Is(err, http.ErrServerClosed) {
 			logger.Error("Server error", slog.Any("error", err))
