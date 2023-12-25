@@ -13,7 +13,7 @@ import (
 
 func getServer(logger *slog.Logger, cfg *config) *http.Server {
 	mux := chi.NewMux()
-	useMiddleware(mux, logger, cfg)
+	setMiddleware(mux, logger, cfg)
 	defineRoutes(mux, cfg)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", cfg.port),
