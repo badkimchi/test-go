@@ -23,24 +23,24 @@ import (
 	"github.com/google/wire"
 )
 
-type apiHandlers struct {
+type reqControllers struct {
 	AuthC *auth.AuthController
 }
 
 func controllers() (
-	apiHandlers, error,
+	reqControllers, error,
 ) {
 	wire.Build(
 		auth.NewAuthController,
-		newApiHandlers,
+		newReqControllers,
 	)
-	return apiHandlers{}, nil
+	return reqControllers{}, nil
 }
 
-func newApiHandlers(
+func newReqControllers(
 	authC *auth.AuthController,
-) apiHandlers {
-	return apiHandlers{
+) reqControllers {
+	return reqControllers{
 		AuthC: authC,
 	}
 }

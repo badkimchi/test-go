@@ -12,22 +12,22 @@ import (
 
 // Injectors from wire.go:
 
-func controllers() (apiHandlers, error) {
+func controllers() (reqControllers, error) {
 	authController := auth.NewAuthController()
-	mainApiHandlers := newApiHandlers(authController)
-	return mainApiHandlers, nil
+	mainReqControllers := newReqControllers(authController)
+	return mainReqControllers, nil
 }
 
 // wire.go:
 
-type apiHandlers struct {
+type reqControllers struct {
 	AuthC *auth.AuthController
 }
 
-func newApiHandlers(
+func newReqControllers(
 	authC *auth.AuthController,
-) apiHandlers {
-	return apiHandlers{
+) reqControllers {
+	return reqControllers{
 		AuthC: authC,
 	}
 }

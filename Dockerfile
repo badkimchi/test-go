@@ -12,11 +12,11 @@ RUN node --version
 RUN npm --version
 
 WORKDIR /
-COPY abcd /abcd
-WORKDIR /abcd
+COPY frontend /frontend
+WORKDIR /frontend
 RUN npm install
 RUN npm run build
-RUN ls /abcd/dist
+RUN ls /frontend/dist
 
 WORKDIR /app
 COPY go.mod go.sum ./
@@ -29,7 +29,7 @@ RUN CGO_ENABLED=0 go build -o /server
 FROM gcr.io/distroless/base-debian11 as final
 
 COPY --from=builder /server /server
-COPY --from=builder /abcd /abcd
+COPY --from=builder /frontend /frontend
 
 ENV PORT 3000
 EXPOSE $PORT
