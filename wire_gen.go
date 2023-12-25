@@ -21,11 +21,11 @@ func controllers() (reqControllers, error) {
 // wire.go:
 
 type reqControllers struct {
-	AuthC *auth.AuthController
+	AuthC *auth.Controller
 }
 
 func newReqControllers(
-	authC *auth.AuthController,
+	authC *auth.Controller,
 ) reqControllers {
 	return reqControllers{
 		AuthC: authC,

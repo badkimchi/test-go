@@ -24,7 +24,7 @@ import (
 )
 
 type reqControllers struct {
-	AuthC *auth.AuthController
+	AuthC *auth.Controller
 }
 
 func controllers() (
@@ -38,7 +38,7 @@ func controllers() (
 }
 
 func newReqControllers(
-	authC *auth.AuthController,
+	authC *auth.Controller,
 ) reqControllers {
 	return reqControllers{
 		AuthC: authC,

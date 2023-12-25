@@ -44,6 +44,6 @@ func defineStaticRoutes(mux *chi.Mux) {
 	)
 }
 
-func handleHealthCheck(w http.ResponseWriter, r *http.Request) {
+func handleHealthCheck(w http.ResponseWriter, _ *http.Request) {
 	w.WriteHeader(http.StatusOK)
 }
