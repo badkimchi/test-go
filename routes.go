@@ -9,17 +9,14 @@ import (
 )
 
 func defineRoutes(mux *chi.Mux, cfg *config) {
+	handlers, err := initializeHandlers()
+	if err != nil {
+		panic(err)
+	}
+
 	mux.Get(
 		cfg.healthEndpoint, func(w http.ResponseWriter, r *http.Request) {
 			w.WriteHeader(http.StatusOK)
-		},
-	)
-
-	mux.Get(
-		"/hi", func(w http.ResponseWriter, r *http.Request) {
-			l := getLogger(r)
-			l.Info(cfg.serviceName)
-			_, _ = w.Write([]byte("hi"))
 		},
 	)
 
@@ -46,9 +43,5 @@ func defineRoutes(mux *chi.Mux, cfg *config) {
 		},
 	)
 
-	mux.Get(
-		"/panic", func(w http.ResponseWriter, r *http.Request) {
-			panic("testing panic recovery and logging")
-		},
-	)
+	mux.Get("/test", handlers.AuthC.TestGet)
 }

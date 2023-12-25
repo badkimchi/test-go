@@ -1,13 +1,15 @@
-module github.com/dillonstreator/go-chi
+module app
 
 go 1.21
 
 require (
+	github.com/NYTimes/gziphandler v1.1.1
 	github.com/dillonstreator/opentelemetry-go-contrib/instrumentation/net/http/otelhttp v0.0.0-20231119004728-1e3363d236ad
 	github.com/docker/go-units v0.5.0
 	github.com/go-chi/chi v1.5.5
 	github.com/go-chi/cors v1.2.1
 	github.com/google/uuid v1.4.0
+	github.com/google/wire v0.5.0
 	go.opentelemetry.io/otel v1.21.0
 	go.opentelemetry.io/otel/exporters/otlp/otlptrace/otlptracehttp v1.21.0
 	go.opentelemetry.io/otel/exporters/stdout/stdouttrace v1.21.0
