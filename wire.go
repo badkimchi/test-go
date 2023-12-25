@@ -27,7 +27,7 @@ type apiHandlers struct {
 	AuthC *auth.AuthController
 }
 
-func initializeHandlers() (
+func controllers() (
 	apiHandlers, error,
 ) {
 	wire.Build(

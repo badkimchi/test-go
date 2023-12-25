@@ -17,7 +17,7 @@ func setMiddleware(mux *chi.Mux, logger *slog.Logger) {
 	mux.Use(trustProxy(logger))
 	mux.Use(otelhttp.NewMiddleware("chi"))
 	mux.Use(requestLogger(logger))
-	mux.Use(allowCORS())
+	mux.Use(corsHeaders())
 }
 
 func requestLogger(logger *slog.Logger) func(handler http.Handler) http.Handler {
@@ -49,7 +49,7 @@ func requestLogger(logger *slog.Logger) func(handler http.Handler) http.Handler 
 	}
 }
 
-func allowCORS() func(http.Handler) http.Handler {
+func corsHeaders() func(http.Handler) http.Handler {
 	corsOptions := cors.New(
 		cors.Options{
 			AllowedOrigins: []string{"*"},

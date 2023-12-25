@@ -12,7 +12,7 @@ import (
 
 // Injectors from wire.go:
 
-func initializeHandlers() (apiHandlers, error) {
+func controllers() (apiHandlers, error) {
 	authController := auth.NewAuthController()
 	mainApiHandlers := newApiHandlers(authController)
 	return mainApiHandlers, nil

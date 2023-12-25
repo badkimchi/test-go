@@ -9,7 +9,7 @@ import (
 )
 
 func defineRoutes(mux *chi.Mux, cfg *config) {
-	handlers, err := initializeHandlers()
+	handlers, err := controllers()
 	if err != nil {
 		panic(err)
 	}
