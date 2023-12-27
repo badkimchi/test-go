@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"app/resp"
 	"net/http"
 )
 
@@ -11,7 +12,7 @@ func NewAuthController() *Controller {
 	return &Controller{}
 }
 
-func (c *Controller) TestGet(w http.ResponseWriter, _ *http.Request) {
+func (c *Controller) TestGet(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(http.StatusOK)
-	_, _ = w.Write([]byte("test"))
+	resp.OK(w, r, "test")
 }

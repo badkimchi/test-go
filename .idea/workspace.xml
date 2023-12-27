@@ -5,9 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5fab1d8-2444-4c93-b9d4-cec03e2162ba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/db.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resp/response.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/domains/auth/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/domains/auth/controller.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
     </list>
@@ -62,6 +62,7 @@
     "node.js.selected.package.eslint": "",
     "node.js.selected.package.standard": "",
     "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "preferences.sourceCode.Go",
     "ts.external.directory.path": "/Users/sang/workspace/test-go/frontend/node_modules/typescript/lib"
   }
 }]]></component>
@@ -71,6 +72,7 @@
       <recent name="$PROJECT_DIR$/frontend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/resp" />
       <recent name="$PROJECT_DIR$/frontend/src/assets" />
     </key>
   </component>

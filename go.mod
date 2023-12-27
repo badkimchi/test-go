@@ -8,6 +8,7 @@ require (
 	github.com/docker/go-units v0.5.0
 	github.com/go-chi/chi v1.5.5
 	github.com/go-chi/cors v1.2.1
+	github.com/go-chi/render v1.0.3
 	github.com/google/uuid v1.4.0
 	github.com/google/wire v0.5.0
 	go.opentelemetry.io/otel v1.21.0
@@ -20,6 +21,7 @@ require (
 )
 
 require (
+	github.com/ajg/form v1.5.1 // indirect
 	github.com/cenkalti/backoff/v4 v4.2.1 // indirect
 	github.com/felixge/httpsnoop v1.0.4 // indirect
 	github.com/go-logr/logr v1.3.0 // indirect
