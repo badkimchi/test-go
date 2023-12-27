@@ -1,4 +1,4 @@
-package main
+package util
 
 import (
 	"fmt"
@@ -9,10 +9,10 @@ import (
 
 var db *gorm.DB
 
-func initializeConnection(cfg *config) {
+func initializeConnection(cfg *Config) {
 	dsn := fmt.Sprintf(
 		"%s:%s@tcp(%s:3306)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-		cfg.dbUser, cfg.dbPassword, cfg.dbHost, cfg.dbName,
+		cfg.DbUser, cfg.DbPassword, cfg.DbHost, cfg.DbName,
 	)
 	dbConn, err := gorm.Open(
 		mysql.Open(dsn), &gorm.Config{
@@ -32,7 +32,7 @@ func initializeConnection(cfg *config) {
 	sqlDb.SetConnMaxLifetime(time.Minute)
 }
 
-func Conn(cfg *config) *gorm.DB {
+func Conn(cfg *Config) *gorm.DB {
 	if db == nil {
 		initializeConnection(cfg)
 	}

@@ -1,6 +1,7 @@
 package main
 
 import (
+	"app/util"
 	"github.com/go-chi/chi"
 	"net/http"
 	"os"
@@ -8,13 +9,13 @@ import (
 	"path/filepath"
 )
 
-func defineRoutes(mux *chi.Mux, cfg *config) {
+func defineRoutes(mux *chi.Mux, cfg *util.Config) {
 	handlers, err := controllers()
 	if err != nil {
 		panic(err)
 	}
 	defineStaticRoutes(mux)
-	mux.Get(cfg.healthEndpoint, handleHealthCheck)
+	mux.Get(cfg.HealthEndpoint, handleHealthCheck)
 	mux.Get("/test", handlers.AuthC.TestGet)
 }
 

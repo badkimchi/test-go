@@ -1,4 +1,4 @@
-package main
+package util
 
 import (
 	"context"
@@ -13,9 +13,9 @@ import (
 	semconv "go.opentelemetry.io/otel/semconv/v1.21.0"
 )
 
-// setupOTelSDK bootstraps the OpenTelemetry pipeline.
+// SetupOTelSDK bootstraps the OpenTelemetry pipeline.
 // If it does not return an error, make sure to call shutdown for proper cleanup.
-func setupOTelSDK(ctx context.Context, cfg *config) (shutdown func(context.Context) error, err error) {
+func SetupOTelSDK(ctx context.Context, cfg *Config) (shutdown func(context.Context) error, err error) {
 	var shutdownFuncs []func(context.Context) error
 
 	// shutdown calls cleanup functions registered via shutdownFuncs.
@@ -30,7 +30,7 @@ func setupOTelSDK(ctx context.Context, cfg *config) (shutdown func(context.Conte
 		return err
 	}
 
-	if !cfg.otelEnabled {
+	if !cfg.OtelEnabled {
 		return shutdown, nil
 	}
 
@@ -40,7 +40,7 @@ func setupOTelSDK(ctx context.Context, cfg *config) (shutdown func(context.Conte
 	}
 
 	// Set up resource.
-	res, err := newResource(cfg.serviceName, cfg.serviceVersion)
+	res, err := newResource(cfg.ServiceName, cfg.ServiceVersion)
 	if err != nil {
 		handleErr(err)
 		return
@@ -77,10 +77,10 @@ func newPropagator() propagation.TextMapPropagator {
 	)
 }
 
-func newTraceProvider(res *resource.Resource, cfg *config) (*trace.TracerProvider, error) {
+func newTraceProvider(res *resource.Resource, cfg *Config) (*trace.TracerProvider, error) {
 	var exporter trace.SpanExporter
 	var err error
-	if cfg.otelExporterOTLPEndpoint != nil {
+	if cfg.OtelExporterOTLPEndpoint != nil {
 		exporter, err = otlptracehttp.New(context.Background())
 	} else {
 		exporter, err = stdouttrace.New(

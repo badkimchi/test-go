@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"app/resp"
+	"app/util/resp"
 	"net/http"
 )
 

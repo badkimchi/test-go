@@ -1,24 +1,12 @@
-package main
+package middleware
 
 import (
-	"github.com/dillonstreator/opentelemetry-go-contrib/instrumentation/net/http/otelhttp"
-	"github.com/go-chi/chi"
-	"github.com/go-chi/chi/middleware"
-	"github.com/go-chi/cors"
 	"github.com/google/uuid"
 	"go.opentelemetry.io/otel/trace"
 	"log/slog"
 	"net/http"
 	"time"
 )
-
-func setMiddleware(mux *chi.Mux, logger *slog.Logger) {
-	mux.Use(middleware.Recoverer)
-	mux.Use(trustProxy(logger))
-	mux.Use(otelhttp.NewMiddleware("chi"))
-	mux.Use(requestLogger(logger))
-	mux.Use(corsHeaders())
-}
 
 func requestLogger(logger *slog.Logger) func(handler http.Handler) http.Handler {
 	return func(handler http.Handler) http.Handler {
@@ -47,23 +35,4 @@ func requestLogger(logger *slog.Logger) func(handler http.Handler) http.Handler 
 			},
 		)
 	}
-}
-
-func corsHeaders() func(http.Handler) http.Handler {
-	corsOptions := cors.New(
-		cors.Options{
-			AllowedOrigins: []string{"*"},
-			AllowedMethods: []string{
-				"GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS",
-			},
-			AllowedHeaders: []string{
-				"X-PINGOTHER", "Accept", "Origin", "X-Auth-Token", "Authorization",
-				"Content-Type", "X-CSRF-Token", "Cache-Control", "Pragma",
-			},
-			ExposedHeaders:   []string{"Link"},
-			AllowCredentials: true,
-			MaxAge:           3600,
-		},
-	)
-	return corsOptions.Handler
 }

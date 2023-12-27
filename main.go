@@ -1,6 +1,8 @@
 package main
 
 import (
+	"app/middleware"
+	"app/util"
 	"context"
 	"errors"
 	"fmt"
@@ -15,25 +17,25 @@ import (
 )
 
 func main() {
-	cfg, err := newConfig()
+	cfg, err := util.NewConfig()
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	logger := newLogger(os.Stdout, cfg.logLevel)
+	logger := util.NewLogger(os.Stdout, cfg.LogLevel)
 
-	otelShutdown, err := setupOTelSDK(context.Background(), cfg)
+	otelShutdown, err := util.SetupOTelSDK(context.Background(), cfg)
 	if err != nil {
 		logger.Error("Setting up open telemetry", slog.Any("error", err))
 		os.Exit(1)
 	}
 
 	mux := chi.NewMux()
-	setMiddleware(mux, logger)
+	middleware.SetMiddleware(mux, logger)
 	defineRoutes(mux, cfg)
 	muxWithGzip := gziphandler.GzipHandler(mux)
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%d", cfg.port),
+		Addr:    fmt.Sprintf(":%d", cfg.Port),
 		Handler: muxWithGzip,
 	}
 
@@ -44,7 +46,7 @@ func main() {
 		}
 	}()
 
-	logger.Info(fmt.Sprintf("Listening for HTTP on port %d", cfg.port))
+	logger.Info(fmt.Sprintf("Listening for HTTP on Port %d", cfg.Port))
 
 	shutdown := make(chan os.Signal, 1)
 	signal.Notify(shutdown, syscall.SIGINT, syscall.SIGTERM)
@@ -52,7 +54,7 @@ func main() {
 	sig := <-shutdown
 	logger.Info("Shutdown signal received", "signal", sig.String())
 
-	ctx, cancel := context.WithTimeout(context.Background(), cfg.shutdownTimeout)
+	ctx, cancel := context.WithTimeout(context.Background(), cfg.ShutdownTimeout)
 	defer cancel()
 
 	err = srv.Shutdown(ctx)

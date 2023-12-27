@@ -5,11 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5fab1d8-2444-4c93-b9d4-cec03e2162ba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/resp/response.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/middleware/cors.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/middleware/logging.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/util/errors.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/config.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/db.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/db.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/domains/auth/controller.go" beforeDir="false" afterPath="$PROJECT_DIR$/domains/auth/controller.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" afterPath="$PROJECT_DIR$/go.mod" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" afterPath="$PROJECT_DIR$/go.sum" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/errors.go" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/logging.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/logging.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/middleware.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resp/response.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/resp/response.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/telemetry.go" beforeDir="false" afterPath="$PROJECT_DIR$/util/telemetry.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/trustproxy.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/trustproxy.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -72,8 +82,11 @@
       <recent name="$PROJECT_DIR$/frontend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/resp" />
-      <recent name="$PROJECT_DIR$/frontend/src/assets" />
+      <recent name="$PROJECT_DIR$/middleware" />
+      <recent name="$PROJECT_DIR$/common" />
+      <recent name="$PROJECT_DIR$/util" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/util/logging" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build main.go">

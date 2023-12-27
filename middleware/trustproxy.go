@@ -1,4 +1,4 @@
-package main
+package middleware
 
 import (
 	"fmt"
@@ -33,7 +33,7 @@ var schemeHeaders = []string{
 
 var xForwardedHost = "X-Forwarded-Host"
 
-func trustProxy(logger *slog.Logger) func(http.Handler) http.Handler {
+func TrustProxy(logger *slog.Logger) func(http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 			trusted, err := isTrustedIP(r.RemoteAddr, parsedTrustedIPs)

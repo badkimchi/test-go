@@ -1,11 +1,11 @@
-package main
+package util
 
 import (
 	"io"
 	"log/slog"
 )
 
-func newLogger(w io.Writer, lvl slog.Level) *slog.Logger {
+func NewLogger(w io.Writer, lvl slog.Level) *slog.Logger {
 	logger := slog.New(slog.NewJSONHandler(w, &slog.HandlerOptions{
 		Level: lvl,
 		ReplaceAttr: func(groups []string, a slog.Attr) slog.Attr {
@@ -16,10 +16,8 @@ func newLogger(w io.Writer, lvl slog.Level) *slog.Logger {
 			if a.Key == slog.LevelKey {
 				a.Key = "lvl"
 			}
-
 			return a
 		},
 	}))
-
 	return logger
 }

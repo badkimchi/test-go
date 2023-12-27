@@ -1,4 +1,4 @@
-package main
+package util
 
 import (
 	"errors"
@@ -11,23 +11,23 @@ import (
 	"github.com/docker/go-units"
 )
 
-type config struct {
-	port                     int
-	healthEndpoint           string
-	logLevel                 slog.Level
-	shutdownTimeout          time.Duration
-	serviceName              string
-	serviceVersion           string
-	otelEnabled              bool
-	otelExporterOTLPEndpoint *url.URL
-	maxAllowedRequestBytes   int64
-	dbUser                   string
-	dbPassword               string
-	dbHost                   string
-	dbName                   string
+type Config struct {
+	Port                     int
+	HealthEndpoint           string
+	LogLevel                 slog.Level
+	ShutdownTimeout          time.Duration
+	ServiceName              string
+	ServiceVersion           string
+	OtelEnabled              bool
+	OtelExporterOTLPEndpoint *url.URL
+	MaxAllowedRequestBytes   int64
+	DbUser                   string
+	DbPassword               string
+	DbHost                   string
+	DbName                   string
 }
 
-func newConfig() (*config, error) {
+func NewConfig() (*Config, error) {
 	errs := []error{}
 
 	port, err := getEnv("PORT", strconv.Atoi, 3000)
@@ -79,16 +79,16 @@ func newConfig() (*config, error) {
 		return nil, errors.Join(errs...)
 	}
 
-	return &config{
-		port:                     port,
-		healthEndpoint:           healthEndpoint,
-		logLevel:                 logLevel,
-		shutdownTimeout:          shutdownTimeout,
-		serviceName:              serviceName,
-		serviceVersion:           serviceVersion,
-		otelEnabled:              otelEnabled,
-		otelExporterOTLPEndpoint: otelExporterOTLPEndpoint,
-		maxAllowedRequestBytes:   maxAllowedRequestBytes,
+	return &Config{
+		Port:                     port,
+		HealthEndpoint:           healthEndpoint,
+		LogLevel:                 logLevel,
+		ShutdownTimeout:          shutdownTimeout,
+		ServiceName:              serviceName,
+		ServiceVersion:           serviceVersion,
+		OtelEnabled:              otelEnabled,
+		OtelExporterOTLPEndpoint: otelExporterOTLPEndpoint,
+		MaxAllowedRequestBytes:   maxAllowedRequestBytes,
 	}, nil
 }
 
@@ -96,7 +96,7 @@ func getEnv[T any](key string, parser func(value string) (T, error), defaultValu
 	value, ok := os.LookupEnv(key)
 	if ok {
 		parsed, err := parser(value)
-		return parsed, errWrapf(err, "parsing env %s", key)
+		return parsed, ErrWrapf(err, "parsing env %s", key)
 	}
 
 	return defaultValue, nil
