@@ -21,6 +21,10 @@ type config struct {
 	otelEnabled              bool
 	otelExporterOTLPEndpoint *url.URL
 	maxAllowedRequestBytes   int64
+	dbUser                   string
+	dbPassword               string
+	dbHost                   string
+	dbName                   string
 }
 
 func newConfig() (*config, error) {
