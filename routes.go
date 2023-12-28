@@ -10,13 +10,13 @@ import (
 )
 
 func defineRoutes(mux *chi.Mux, cfg *util.Config) {
-	handlers, err := controllers()
+	controllers, err := controllers()
 	if err != nil {
 		panic(err)
 	}
-	defineStaticRoutes(mux)
 	mux.Get(cfg.HealthEndpoint, handleHealthCheck)
-	mux.Get("/test", handlers.AuthC.TestGet)
+	defineStaticRoutes(mux)
+	defineAPIRoutes(controllers, mux)
 }
 
 func defineStaticRoutes(mux *chi.Mux) {
@@ -43,6 +43,12 @@ func defineStaticRoutes(mux *chi.Mux) {
 			//w.Write([]byte(fullFilePath))
 		},
 	)
+}
+
+func defineAPIRoutes(cont reqControllers, mux *chi.Mux) {
+	mux.Route("/api", func(api chi.Router) {
+		api.Get("/test", cont.AuthC.TestGet)
+	})
 }
 
 func handleHealthCheck(w http.ResponseWriter, _ *http.Request) {

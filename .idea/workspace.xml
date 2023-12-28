@@ -5,37 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5fab1d8-2444-4c93-b9d4-cec03e2162ba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/APIDevice.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/base/APIBase.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/base/conf.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/models/User.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/common/Logo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/common/Logo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/items/VoiceChannelItem.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/items/VoiceChannelItem.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/InviteModal.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modals/InviteModal.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/getSocket.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/handler/auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/lib/api/handler/auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/setupAxios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/lib/api/setupAxios.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/ws/useChannelSocket.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/ws/useDMSocket.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/ws/useFriendSocket.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/ws/useGuildSocket.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/ws/useMemberSocket.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/ws/useMessageSocket.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/ws/useRequestSocket.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/ws/useVoiceSocket.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/stores/userStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/lib/stores/userStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/cropImage.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/dateUtils.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useGetCurrentChannel.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useGetCurrentChannel.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useGetCurrentDM.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useGetCurrentGuild.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useGetFriend.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useVoiceChat.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/querykeys.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/theme.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/toErrorMap.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/validation/auth.schema.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/validation/channel.schema.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/validation/guild.schema.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/validation/member.schema.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/validation/message.schema.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/setupAxios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/lib/api/base/setupAxios.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/routes/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/routes/Home.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +62,7 @@
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/Users/sang/workspace/test-go/frontend/src",
+    "last_opened_file_path": "/Users/sang/workspace/test-go/frontend/src/lib/api",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
     "node.js.selected.package.eslint": "(autodetect)",
@@ -94,17 +74,18 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/lib/api" />
+      <recent name="$PROJECT_DIR$/frontend/src/lib/models" />
       <recent name="$PROJECT_DIR$/frontend/src" />
       <recent name="$PROJECT_DIR$/frontend/src/routes" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/frontend" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src/lib/api/base" />
       <recent name="$PROJECT_DIR$/middleware" />
       <recent name="$PROJECT_DIR$/common" />
       <recent name="$PROJECT_DIR$/util" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/util/logging" />
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build main.go">
