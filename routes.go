@@ -10,13 +10,13 @@ import (
 )
 
 func defineRoutes(mux *chi.Mux, cfg *util.Config) {
-	controllers, err := controllers()
+	cont, err := controllers()
 	if err != nil {
 		panic(err)
 	}
 	mux.Get(cfg.HealthEndpoint, handleHealthCheck)
 	defineStaticRoutes(mux)
-	defineAPIRoutes(controllers, mux)
+	defineAPIRoutes(cont, mux)
 }
 
 func defineStaticRoutes(mux *chi.Mux) {

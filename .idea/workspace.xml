@@ -5,16 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5fab1d8-2444-4c93-b9d4-cec03e2162ba" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/APIDevice.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/base/APIBase.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/base/conf.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/frontend/src/lib/models/User.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/setupAxios.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/lib/api/base/setupAxios.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/routes/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/routes/Home.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/base/conf.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/lib/api/base/conf.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" afterPath="$PROJECT_DIR$/routes.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

@@ -1,10 +1,9 @@
 import User from "../../models/User.tsx";
 
 export const devMode = window.location.host.includes('localhost');
-let devhost = 'http://localhost';
-const port = ':3000';
-const prodAPIHost = 'https://' + window.location.hostname;
-export const url = (devMode ? devhost : prodAPIHost) + port;
+let devhost = 'http://localhost:3000';
+const prodAPIHost = window.location.origin;
+export const url = devMode ? devhost : prodAPIHost;
 export const APIConfig = {
     timeout: 5000,
     baseURL: url + "/api/",
