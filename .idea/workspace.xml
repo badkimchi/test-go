@@ -5,8 +5,47 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5fab1d8-2444-4c93-b9d4-cec03e2162ba" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/common/Logo.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/items/VoiceChannelItem.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/layouts/AppLayout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/layouts/LandingLayout.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/components/modals/InviteModal.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/getSocket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/handler/auth.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/setupAxios.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/ws/useChannelSocket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/ws/useDMSocket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/ws/useFriendSocket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/ws/useGuildSocket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/ws/useMemberSocket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/ws/useMessageSocket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/ws/useRequestSocket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/api/ws/useVoiceSocket.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/models/account.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/stores/userStore.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/cropImage.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/dateUtils.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useGetCurrentChannel.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useGetCurrentDM.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useGetCurrentGuild.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useGetFriend.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useVoiceChat.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/querykeys.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/theme.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/toErrorMap.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/validation/auth.schema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/validation/channel.schema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/validation/guild.schema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/validation/member.schema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/lib/utils/validation/message.schema.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/frontend/src/routes/Home.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/middleware.go" beforeDir="false" afterPath="$PROJECT_DIR$/middleware/setup.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/assets/react.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -53,10 +92,10 @@
     "WebServerToolWindowFactoryState": "false",
     "go.import.settings.migrated": "true",
     "go.sdk.automatically.set": "true",
-    "last_opened_file_path": "/Users/sang/workspace/test-go",
+    "last_opened_file_path": "/Users/sang/workspace/test-go/frontend/src",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
-    "node.js.selected.package.eslint": "",
+    "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.standard": "",
     "nodejs_package_manager_path": "npm",
     "settings.editor.selected.configurable": "preferences.sourceCode.Go",
@@ -65,6 +104,8 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/frontend/src" />
+      <recent name="$PROJECT_DIR$/frontend/src/routes" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/frontend" />
     </key>
@@ -77,6 +118,14 @@
     </key>
   </component>
   <component name="RunManager" selected="Go Build.go build main.go">
+    <configuration default="true" type="GoApplicationRunConfiguration" factoryName="Go Application">
+      <module name="test-go" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="FILE" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <method v="2" />
+    </configuration>
     <configuration name="go build github.com/dillonstreator/go-chi" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="test-go" />
       <working_directory value="$PROJECT_DIR$" />
@@ -93,6 +142,15 @@
       <package value="github.com/dillonstreator/go-chi" />
       <directory value="$PROJECT_DIR$" />
       <filePath value="$PROJECT_DIR$/main.go" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="GoTestRunConfiguration" factoryName="Go Test">
+      <module name="test-go" />
+      <working_directory value="$PROJECT_DIR$" />
+      <kind value="DIRECTORY" />
+      <directory value="$PROJECT_DIR$" />
+      <filePath value="$PROJECT_DIR$" />
+      <framework value="gotest" />
       <method v="2" />
     </configuration>
     <configuration name="dev" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
