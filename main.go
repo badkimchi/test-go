@@ -21,9 +21,13 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-
+	fmt.Println(cfg.DbUser)
+	fmt.Println(cfg.DbUser)
+	fmt.Println(cfg.DbUser)
+	fmt.Println(cfg.DbUser)
+	fmt.Println(cfg.DbUser)
+	
 	logger := util.NewLogger(os.Stdout, cfg.LogLevel)
-
 	otelShutdown, err := util.SetupOTelSDK(context.Background(), cfg)
 	if err != nil {
 		logger.Error("Setting up open telemetry", slog.Any("error", err))

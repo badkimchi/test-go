@@ -2,6 +2,8 @@ package util
 
 import (
 	"errors"
+	"github.com/joho/godotenv"
+	"log"
 	"log/slog"
 	"net/url"
 	"os"
@@ -75,6 +77,8 @@ func NewConfig() (*Config, error) {
 		errs = append(errs, err)
 	}
 
+	DbUser := goDotEnvVariable("DB_USER")
+
 	if len(errs) > 0 {
 		return nil, errors.Join(errs...)
 	}
@@ -89,6 +93,7 @@ func NewConfig() (*Config, error) {
 		OtelEnabled:              otelEnabled,
 		OtelExporterOTLPEndpoint: otelExporterOTLPEndpoint,
 		MaxAllowedRequestBytes:   maxAllowedRequestBytes,
+		DbUser:                   DbUser,
 	}, nil
 }
 
@@ -100,6 +105,15 @@ func getEnv[T any](key string, parser func(value string) (T, error), defaultValu
 	}
 
 	return defaultValue, nil
+}
+
+func goDotEnvVariable(key string) string {
+	// load .env file
+	err := godotenv.Load("./.env")
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+	return os.Getenv(key)
 }
 
 func parseLogLevel(value string) (slog.Level, error) {
