@@ -21,8 +21,8 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(cfg.DbPassword)
-	fmt.Println(cfg.DbPassword)
+	fmt.Println(cfg.DbUser)
+	fmt.Println(cfg.DbUser)
 	fmt.Println(cfg.DbPassword)
 	fmt.Println(cfg.DbPassword)
 	fmt.Println(cfg.DbPassword)
