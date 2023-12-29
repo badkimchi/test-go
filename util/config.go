@@ -78,6 +78,7 @@ func NewConfig() (*Config, error) {
 	}
 
 	DbUser := goDotEnvVariable("DB_USER")
+	DbPassword := goDotEnvVariable("DB_PASSWORD")
 
 	if len(errs) > 0 {
 		return nil, errors.Join(errs...)
@@ -94,6 +95,7 @@ func NewConfig() (*Config, error) {
 		OtelExporterOTLPEndpoint: otelExporterOTLPEndpoint,
 		MaxAllowedRequestBytes:   maxAllowedRequestBytes,
 		DbUser:                   DbUser,
+		DbPassword:               DbPassword,
 	}, nil
 }
 

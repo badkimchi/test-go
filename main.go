@@ -21,12 +21,12 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	fmt.Println(cfg.DbUser)
-	fmt.Println(cfg.DbUser)
-	fmt.Println(cfg.DbUser)
-	fmt.Println(cfg.DbUser)
-	fmt.Println(cfg.DbUser)
-	
+	fmt.Println(cfg.DbPassword)
+	fmt.Println(cfg.DbPassword)
+	fmt.Println(cfg.DbPassword)
+	fmt.Println(cfg.DbPassword)
+	fmt.Println(cfg.DbPassword)
+
 	logger := util.NewLogger(os.Stdout, cfg.LogLevel)
 	otelShutdown, err := util.SetupOTelSDK(context.Background(), cfg)
 	if err != nil {
