@@ -11,7 +11,7 @@ ENV PATH="/root/.nvm/versions/node/v${NODE_VERSION}/bin/:${PATH}"
 RUN node --version
 RUN npm --version
 
-WORKDIR /app
+WORKDIR /
 COPY frontend /frontend
 WORKDIR /frontend
 RUN npm install
