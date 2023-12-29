@@ -2,12 +2,15 @@ package main
 
 import (
 	"app/middleware"
+	"app/sql/db"
 	"app/util"
 	"context"
+	"database/sql"
 	"errors"
 	"fmt"
 	"github.com/NYTimes/gziphandler"
 	"github.com/go-chi/chi"
+	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"log/slog"
 	"net/http"
@@ -21,6 +24,18 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+
+	conn, err := sql.Open("mysql", "root:eFgfEbcHeDb1F6Ag32cgb46gg1GC1CD2@tcp(roundhouse.proxy.rlwy.net:14053)/railway")
+	if err != nil {
+		log.Fatal(err)
+	}
+	q := db.New(conn)
+
+	user, err := q.GetAuthor(context.Background(), 1)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(user.Name)
 
 	logger := util.NewLogger(os.Stdout, cfg.LogLevel)
 	otelShutdown, err := SetupOTelSDK(context.Background(), cfg)
