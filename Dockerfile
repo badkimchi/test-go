@@ -18,9 +18,15 @@ RUN npm install
 RUN npm run build
 RUN ls /frontend/dist
 
+<<<<<<< HEAD
 WORKDIR /server
 COPY go.mod ./
 COPY go.sum ./
+=======
+WORKDIR /app
+COPY go.mod go.sum ./
+COPY .env-prod /.env-prod
+>>>>>>> parent of 67e6f63 (aa)
 RUN go mod download
 
 COPY . .
