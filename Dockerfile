@@ -18,18 +18,18 @@ RUN npm install
 RUN npm run build
 RUN ls /frontend/dist
 
+COPY server /server
 WORKDIR /server
-COPY server server
 RUN go mod download
-RUN CGO_ENABLED=0 go build -o /server
+RUN CGO_ENABLED=0 go build -o /app
 
 FROM gcr.io/distroless/base-debian11 as final
 
-COPY --from=builder /server /server
+COPY --from=builder /app /app
 COPY --from=builder /frontend /frontend
 COPY --from=builder /.env-prod /.env
 
 ENV PORT 3000
 EXPOSE $PORT
 
-ENTRYPOINT ["/server"]
+ENTRYPOINT ["/app"]
