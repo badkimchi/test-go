@@ -17,7 +17,7 @@ import (
 )
 
 func main() {
-	cfg, err := util.NewConfig()
+	cfg, err := NewConfig()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -28,7 +28,7 @@ func main() {
 	fmt.Println(cfg.DbPassword)
 
 	logger := util.NewLogger(os.Stdout, cfg.LogLevel)
-	otelShutdown, err := util.SetupOTelSDK(context.Background(), cfg)
+	otelShutdown, err := SetupOTelSDK(context.Background(), cfg)
 	if err != nil {
 		logger.Error("Setting up open telemetry", slog.Any("error", err))
 		os.Exit(1)

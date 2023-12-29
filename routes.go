@@ -1,7 +1,6 @@
 package main
 
 import (
-	"app/util"
 	"github.com/go-chi/chi"
 	"net/http"
 	"os"
@@ -9,7 +8,7 @@ import (
 	"path/filepath"
 )
 
-func defineRoutes(mux *chi.Mux, cfg *util.Config) {
+func defineRoutes(mux *chi.Mux, cfg *Config) {
 	cont, err := controllers()
 	if err != nil {
 		panic(err)

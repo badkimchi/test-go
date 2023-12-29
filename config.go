@@ -1,6 +1,7 @@
-package util
+package main
 
 import (
+	"app/util"
 	"errors"
 	"github.com/joho/godotenv"
 	"log"
@@ -27,6 +28,7 @@ type Config struct {
 	DbPassword               string
 	DbHost                   string
 	DbName                   string
+	DbPort                   int
 }
 
 func NewConfig() (*Config, error) {
@@ -79,6 +81,13 @@ func NewConfig() (*Config, error) {
 
 	DbUser := goDotEnvVariable("DB_USER")
 	DbPassword := goDotEnvVariable("DB_PASSWORD")
+	DbHost := goDotEnvVariable("DB_HOST")
+	DbName := goDotEnvVariable("DB_NAME")
+	DbPortString := goDotEnvVariable("DB_PORT")
+	DbPort, err := strconv.Atoi(DbPortString)
+	if err != nil {
+		errs = append(errs, err)
+	}
 
 	if len(errs) > 0 {
 		return nil, errors.Join(errs...)
@@ -96,6 +105,9 @@ func NewConfig() (*Config, error) {
 		MaxAllowedRequestBytes:   maxAllowedRequestBytes,
 		DbUser:                   DbUser,
 		DbPassword:               DbPassword,
+		DbHost:                   DbHost,
+		DbName:                   DbName,
+		DbPort:                   DbPort,
 	}, nil
 }
 
@@ -103,7 +115,7 @@ func getEnv[T any](key string, parser func(value string) (T, error), defaultValu
 	value, ok := os.LookupEnv(key)
 	if ok {
 		parsed, err := parser(value)
-		return parsed, ErrWrapf(err, "parsing env %s", key)
+		return parsed, util.ErrWrapf(err, "parsing env %s", key)
 	}
 
 	return defaultValue, nil
