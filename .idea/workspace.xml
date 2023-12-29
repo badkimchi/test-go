@@ -5,63 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5fab1d8-2444-4c93-b9d4-cec03e2162ba" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.env" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.env-prod" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Dockerfile" beforeDir="false" afterPath="$PROJECT_DIR$/Dockerfile" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/domains/auth/controller.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.eslintrc.cjs" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/package.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/public/vite.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/App.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/common/Logo.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/items/VoiceChannelItem.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/AppLayout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/layouts/LandingLayout.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/components/modals/InviteModal.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/index.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/APIDevice.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/base/APIBase.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/base/conf.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/base/setupAxios.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/api/handler/auth.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/models/User.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/models/account.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/stores/userStore.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/lib/utils/hooks/useGetCurrentChannel.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/main.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/routes/Home.tsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/src/vite-env.d.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/tsconfig.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/tsconfig.node.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/vite.config.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/frontend/yarn.lock" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.mod" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/go.sum" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/cors.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/logging.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/setup.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/middleware/trustproxy.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/db/db.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/db/models.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/db/query.sql.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/query.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/schema.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/sql/sqlc.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/telemetry.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/errors.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/logging.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/resp/response.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wire.go" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/wire_gen.go" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
