@@ -1,3 +1,4 @@
 util/.env
-server
 .idea/*
+server/app
+server/server

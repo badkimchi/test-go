@@ -18,7 +18,7 @@ RUN npm install
 RUN npm run build
 RUN ls /frontend/dist
 
-WORKDIR /app
+WORKDIR /server
 COPY go.mod go.sum ./
 COPY .env-prod /.env-prod
 RUN go mod download
