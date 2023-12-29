@@ -27,7 +27,7 @@ FROM gcr.io/distroless/base-debian11 as final
 
 COPY --from=builder /app /app
 COPY --from=builder /frontend /frontend
-COPY --from=builder /.env-prod /.env
+COPY --from=builder /server/.env-prod /.env
 
 ENV PORT 3000
 EXPOSE $PORT
