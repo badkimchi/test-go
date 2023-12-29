@@ -20,7 +20,7 @@ RUN ls /frontend/dist
 
 WORKDIR /app
 COPY go.mod go.sum ./
-COPY .env /.env
+COPY .env-prod /.env-prod
 RUN go mod download
 
 COPY . .
@@ -31,7 +31,7 @@ FROM gcr.io/distroless/base-debian11 as final
 
 COPY --from=builder /server /server
 COPY --from=builder /frontend /frontend
-COPY --from=builder /.env /.env
+COPY --from=builder /.env-prod /.env
 
 ENV PORT 3000
 EXPOSE $PORT
