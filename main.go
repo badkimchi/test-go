@@ -22,10 +22,10 @@ func main() {
 		log.Fatal(err)
 	}
 	fmt.Println(cfg.DbUser)
-	fmt.Println(cfg.DbUser)
 	fmt.Println(cfg.DbPassword)
-	fmt.Println(cfg.DbPassword)
-	fmt.Println(cfg.DbPassword)
+	fmt.Println(cfg.DbHost)
+	fmt.Println(cfg.DbPort)
+	fmt.Println(cfg.DbName)
 
 	logger := util.NewLogger(os.Stdout, cfg.LogLevel)
 	otelShutdown, err := SetupOTelSDK(context.Background(), cfg)
