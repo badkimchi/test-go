@@ -20,7 +20,7 @@ RUN ls /frontend/dist
 
 WORKDIR /app
 COPY go.mod go.sum ./
-COPY .env-prod /.env
+COPY .env /.env
 RUN go mod download
 
 COPY . .
