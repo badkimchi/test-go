@@ -18,14 +18,9 @@ RUN npm install
 RUN npm run build
 RUN ls /frontend/dist
 
-WORKDIR /
-COPY server/go.mod server/go.sum ./
-COPY server/.env-prod /.env-prod
-RUN go mod download
-
 WORKDIR /server
-COPY . .
-
+COPY server server
+RUN go mod download
 RUN CGO_ENABLED=0 go build -o /server
 
 FROM gcr.io/distroless/base-debian11 as final
