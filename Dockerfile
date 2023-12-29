@@ -23,6 +23,7 @@ COPY server/go.mod server/go.sum ./
 COPY server/.env-prod /.env-prod
 RUN go mod download
 
+WORKDIR /server
 COPY . .
 
 RUN CGO_ENABLED=0 go build -o /server
