@@ -28,7 +28,7 @@ type Config struct {
 	DbPassword               string
 	DbHost                   string
 	DbName                   string
-	DbPort                   int
+	DbPort                   string
 }
 
 func NewConfig() (*Config, error) {
@@ -83,11 +83,7 @@ func NewConfig() (*Config, error) {
 	DbPassword := goDotEnvVariable("DB_PASSWORD")
 	DbHost := goDotEnvVariable("DB_HOST")
 	DbName := goDotEnvVariable("DB_NAME")
-	DbPortString := goDotEnvVariable("DB_PORT")
-	DbPort, err := strconv.Atoi(DbPortString)
-	if err != nil {
-		errs = append(errs, err)
-	}
+	DbPort := goDotEnvVariable("DB_PORT")
 
 	if len(errs) > 0 {
 		return nil, errors.Join(errs...)
