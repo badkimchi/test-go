@@ -8,7 +8,7 @@ import (
 	"time"
 )
 
-func requestLogger(logger *slog.Logger) func(handler http.Handler) http.Handler {
+func RequestLogger(logger *slog.Logger) func(handler http.Handler) http.Handler {
 	return func(handler http.Handler) http.Handler {
 		return http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {

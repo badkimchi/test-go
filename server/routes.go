@@ -1,21 +1,36 @@
 package main
 
 import (
+	"app/middleware"
+	"github.com/dillonstreator/opentelemetry-go-contrib/instrumentation/net/http/otelhttp"
 	"github.com/go-chi/chi"
+	chimiddleware "github.com/go-chi/chi/middleware"
+	"github.com/go-chi/jwtauth"
+	"log/slog"
 	"net/http"
 	"os"
 	"path"
 	"path/filepath"
+	"time"
 )
 
-func defineRoutes(mux *chi.Mux, cfg *Config) {
+func defineRoutes(mux *chi.Mux, cfg *Config, logger *slog.Logger, token *jwtauth.JWTAuth) {
+	setCommonMiddleware(mux, logger)
 	cont, err := controllers()
 	if err != nil {
 		panic(err)
 	}
 	mux.Get(cfg.HealthEndpoint, handleHealthCheck)
 	defineStaticRoutes(mux)
-	defineAPIRoutes(cont, mux)
+	defineAPIRoutes(cont, mux, token)
+}
+
+func setCommonMiddleware(mux *chi.Mux, logger *slog.Logger) {
+	mux.Use(chimiddleware.Recoverer)
+	mux.Use(middleware.TrustProxy(logger))
+	mux.Use(otelhttp.NewMiddleware("chi"))
+	mux.Use(middleware.RequestLogger(logger))
+	mux.Use(middleware.CorsHeaders())
 }
 
 func defineStaticRoutes(mux *chi.Mux) {
@@ -44,9 +59,15 @@ func defineStaticRoutes(mux *chi.Mux) {
 	)
 }
 
-func defineAPIRoutes(cont reqControllers, mux *chi.Mux) {
-	mux.Route("/api", func(api chi.Router) {
-		api.Get("/test", cont.AuthC.TestGet)
+func defineAPIRoutes(cont reqControllers, mux *chi.Mux, token *jwtauth.JWTAuth) {
+	mux.Route("/public", func(public chi.Router) {
+		public.Use(middleware.Timeout(time.Second * 4))
+		public.Get("/test", cont.AuthC.TestGet)
+	})
+	mux.Route("/api", func(private chi.Router) {
+		private.Use(middleware.Timeout(time.Second * 10))
+		private.Use(jwtauth.Verifier(token))
+		private.Use(middleware.Authenticator(1))
 	})
 }
 

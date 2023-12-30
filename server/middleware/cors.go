@@ -5,7 +5,7 @@ import (
 	"net/http"
 )
 
-func corsHeaders() func(http.Handler) http.Handler {
+func CorsHeaders() func(http.Handler) http.Handler {
 	corsOptions := cors.New(
 		cors.Options{
 			AllowedOrigins: []string{"*"},

@@ -1,7 +1,6 @@
 package main
 
 import (
-	"app/middleware"
 	"app/sql/db"
 	"app/util"
 	"context"
@@ -10,6 +9,7 @@ import (
 	"fmt"
 	"github.com/NYTimes/gziphandler"
 	"github.com/go-chi/chi"
+	"github.com/go-chi/jwtauth"
 	_ "github.com/lib/pq"
 	"log"
 	"log/slog"
@@ -50,9 +50,12 @@ func main() {
 		os.Exit(1)
 	}
 
+	var tokenAuth *jwtauth.JWTAuth
+	var signKey = fmt.Sprintf("veryDifficultSecretKeyNoOneCanImagine")
+	tokenAuth = jwtauth.New("HS256", []byte(signKey), nil)
+
 	mux := chi.NewMux()
-	middleware.SetMiddleware(mux, logger)
-	defineRoutes(mux, cfg)
+	defineRoutes(mux, cfg, logger, tokenAuth)
 	muxWithGzip := gziphandler.GzipHandler(mux)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", cfg.Port),
