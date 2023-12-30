@@ -32,10 +32,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	q := db.New(conn)
+	queries := db.New(conn)
 
-	fmt.Println(cfg.DbName)
-	user, err := q.GetAuthor(context.Background(), 1)
+	user, err := queries.GetAuthor(context.Background(), 1)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -55,7 +54,7 @@ func main() {
 	tokenAuth = jwtauth.New("HS256", []byte(signKey), nil)
 
 	mux := chi.NewMux()
-	defineRoutes(mux, cfg, logger, tokenAuth)
+	defineRoutes(mux, cfg, logger, tokenAuth, queries)
 	muxWithGzip := gziphandler.GzipHandler(mux)
 	srv := &http.Server{
 		Addr:    fmt.Sprintf(":%d", cfg.Port),

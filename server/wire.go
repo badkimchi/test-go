@@ -19,19 +19,27 @@
 package main
 
 import (
+	"app/domains/account"
 	"app/domains/auth"
+	"app/sql/db"
+	"github.com/go-chi/jwtauth"
 	"github.com/google/wire"
 )
 
 type reqControllers struct {
 	AuthC *auth.Controller
+	AccC  *account.AccountController
 }
 
-func controllers() (
+func controllers(jwtAuth *jwtauth.JWTAuth, queries *db.Queries) (
 	reqControllers, error,
 ) {
 	wire.Build(
 		auth.NewAuthController,
+		auth.NewAuthService,
+		account.NewAccountController,
+		account.NewAccountService,
+		account.NewAccountRepo,
 		newReqControllers,
 	)
 	return reqControllers{}, nil
@@ -39,6 +47,7 @@ func controllers() (
 
 func newReqControllers(
 	authC *auth.Controller,
+	accC *account.AccountController,
 ) reqControllers {
 	return reqControllers{
 		AuthC: authC,
