@@ -22,6 +22,3 @@ WHERE id = $1;
 DELETE
 FROM authors
 WHERE id = $1;
-
-
-INSERT INTO authors (name, bio) VALUES ("some guy", "very nice") RETURNING *;

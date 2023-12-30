@@ -26,15 +26,15 @@ func main() {
 	}
 
 	ctx := context.Background()
-	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		cfg.DbHost, cfg.DbPort, cfg.DbUser, cfg.DbPassword, cfg.DbName)
+	psqlInfo := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=disable",
+		cfg.DbUser, cfg.DbPassword, cfg.DbHost, cfg.DbPort, cfg.DbName)
 	conn, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		log.Fatal(err)
 	}
 	q := db.New(conn)
 
-	fmt.Println("22222")
+	fmt.Println(cfg.DbName)
 	user, err := q.GetAuthor(context.Background(), 1)
 	if err != nil {
 		log.Fatal(err)
