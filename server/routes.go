@@ -24,7 +24,7 @@ func defineStaticRoutes(mux *chi.Mux) {
 		panic(err)
 	}
 	workDir := filepath.Dir(ex)
-	feDir := "frontend/dist"
+	feDir := "web/dist"
 	feBasePath := path.Join(workDir, feDir)
 	mux.Get(
 		"/assets/*", func(w http.ResponseWriter, r *http.Request) {

@@ -12,11 +12,11 @@ RUN node --version
 RUN npm --version
 
 WORKDIR /
-COPY frontend /frontend
-WORKDIR /frontend
+COPY web /web
+WORKDIR /web
 RUN npm install
 RUN npm run build
-RUN ls /frontend/dist
+RUN ls /web/dist
 
 COPY server /server
 WORKDIR /server
@@ -26,7 +26,7 @@ RUN CGO_ENABLED=0 go build -o /app
 FROM gcr.io/distroless/base-debian11 as final
 
 COPY --from=builder /app /app
-COPY --from=builder /frontend /frontend
+COPY --from=builder /web /web
 COPY --from=builder /server/.env-prod /.env
 
 ENV PORT 3000
