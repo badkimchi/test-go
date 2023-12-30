@@ -10,7 +10,7 @@ import (
 	"fmt"
 	"github.com/NYTimes/gziphandler"
 	"github.com/go-chi/chi"
-	_ "github.com/go-sql-driver/mysql"
+	_ "github.com/lib/pq"
 	"log"
 	"log/slog"
 	"net/http"
@@ -25,17 +25,23 @@ func main() {
 		log.Fatal(err)
 	}
 
-	conn, err := sql.Open("mysql", "root:eFgfEbcHeDb1F6Ag32cgb46gg1GC1CD2@tcp(roundhouse.proxy.rlwy.net:14053)/railway")
+	ctx := context.Background()
+	psqlInfo := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		cfg.DbHost, cfg.DbPort, cfg.DbUser, cfg.DbPassword, cfg.DbName)
+	conn, err := sql.Open("postgres", psqlInfo)
 	if err != nil {
 		log.Fatal(err)
 	}
 	q := db.New(conn)
 
+	fmt.Println("22222")
 	user, err := q.GetAuthor(context.Background(), 1)
 	if err != nil {
 		log.Fatal(err)
 	}
+	fmt.Println(user.ID)
 	fmt.Println(user.Name)
+	fmt.Println(user.Bio)
 
 	logger := util.NewLogger(os.Stdout, cfg.LogLevel)
 	otelShutdown, err := SetupOTelSDK(context.Background(), cfg)
