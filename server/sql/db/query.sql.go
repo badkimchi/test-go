@@ -10,90 +10,90 @@ import (
 	"database/sql"
 )
 
-const createAuthor = `-- name: CreateAuthor :one
-INSERT INTO authors (name, bio)
-VALUES ($1, $2) RETURNING id, name, bio
+const createAccount = `-- name: CreateAccount :one
+INSERT INTO Account (Name, Password, Level, Email)
+VALUES ($1, $2, $3, $4) RETURNING accountid, name, password, level, email
 `
 
-type CreateAuthorParams struct {
-	Name string         `json:"name"`
-	Bio  sql.NullString `json:"bio"`
+type CreateAccountParams struct {
+	Name     sql.NullString `json:"name"`
+	Password string         `json:"password"`
+	Level    sql.NullInt32  `json:"level"`
+	Email    sql.NullString `json:"email"`
 }
 
-func (q *Queries) CreateAuthor(ctx context.Context, arg CreateAuthorParams) (Author, error) {
-	row := q.db.QueryRowContext(ctx, createAuthor, arg.Name, arg.Bio)
-	var i Author
-	err := row.Scan(&i.ID, &i.Name, &i.Bio)
+func (q *Queries) CreateAccount(ctx context.Context, arg CreateAccountParams) (Account, error) {
+	row := q.db.QueryRowContext(ctx, createAccount,
+		arg.Name,
+		arg.Password,
+		arg.Level,
+		arg.Email,
+	)
+	var i Account
+	err := row.Scan(
+		&i.Accountid,
+		&i.Name,
+		&i.Password,
+		&i.Level,
+		&i.Email,
+	)
 	return i, err
 }
 
-const deleteAuthor = `-- name: DeleteAuthor :exec
+const deleteAccount = `-- name: DeleteAccount :exec
 DELETE
-FROM authors
-WHERE id = $1
+FROM Account
+WHERE AccountID = $1
 `
 
-func (q *Queries) DeleteAuthor(ctx context.Context, id int64) error {
-	_, err := q.db.ExecContext(ctx, deleteAuthor, id)
+func (q *Queries) DeleteAccount(ctx context.Context, accountid int64) error {
+	_, err := q.db.ExecContext(ctx, deleteAccount, accountid)
 	return err
 }
 
-const getAuthor = `-- name: GetAuthor :one
-SELECT id, name, bio
-FROM authors
-WHERE id = $1 LIMIT 1
+const getAccount = `-- name: GetAccount :one
+SELECT accountid, name, password, level, email
+FROM Account
+WHERE AccountID = $1 LIMIT 1
 `
 
-func (q *Queries) GetAuthor(ctx context.Context, id int64) (Author, error) {
-	row := q.db.QueryRowContext(ctx, getAuthor, id)
-	var i Author
-	err := row.Scan(&i.ID, &i.Name, &i.Bio)
+func (q *Queries) GetAccount(ctx context.Context, accountid int64) (Account, error) {
+	row := q.db.QueryRowContext(ctx, getAccount, accountid)
+	var i Account
+	err := row.Scan(
+		&i.Accountid,
+		&i.Name,
+		&i.Password,
+		&i.Level,
+		&i.Email,
+	)
 	return i, err
 }
 
-const listAuthors = `-- name: ListAuthors :many
-SELECT id, name, bio
-FROM authors
-ORDER BY name
+const updateAccount = `-- name: UpdateAccount :exec
+UPDATE Account
+SET Name     = $2,
+    Password = $3,
+    Level    = $4,
+    Email    = $5
+WHERE AccountID = $1
 `
 
-func (q *Queries) ListAuthors(ctx context.Context) ([]Author, error) {
-	rows, err := q.db.QueryContext(ctx, listAuthors)
-	if err != nil {
-		return nil, err
-	}
-	defer rows.Close()
-	var items []Author
-	for rows.Next() {
-		var i Author
-		if err := rows.Scan(&i.ID, &i.Name, &i.Bio); err != nil {
-			return nil, err
-		}
-		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
-	}
-	if err := rows.Err(); err != nil {
-		return nil, err
-	}
-	return items, nil
+type UpdateAccountParams struct {
+	Accountid int64          `json:"accountid"`
+	Name      sql.NullString `json:"name"`
+	Password  string         `json:"password"`
+	Level     sql.NullInt32  `json:"level"`
+	Email     sql.NullString `json:"email"`
 }
 
-const updateAuthor = `-- name: UpdateAuthor :exec
-UPDATE authors
-set name = $2,
-    bio  = $3
-WHERE id = $1
-`
-
-type UpdateAuthorParams struct {
-	ID   int64          `json:"id"`
-	Name string         `json:"name"`
-	Bio  sql.NullString `json:"bio"`
-}
-
-func (q *Queries) UpdateAuthor(ctx context.Context, arg UpdateAuthorParams) error {
-	_, err := q.db.ExecContext(ctx, updateAuthor, arg.ID, arg.Name, arg.Bio)
+func (q *Queries) UpdateAccount(ctx context.Context, arg UpdateAccountParams) error {
+	_, err := q.db.ExecContext(ctx, updateAccount,
+		arg.Accountid,
+		arg.Name,
+		arg.Password,
+		arg.Level,
+		arg.Email,
+	)
 	return err
 }

@@ -47,7 +47,7 @@ func authenticate(r *http.Request, level int) (error, int) {
 	userLevel := claims["level"].(int)
 	if !hasPermission(userLevel, level) {
 		msg := fmt.Sprintf(
-			"the user level %d is not allowed to use the api end point: %s: %s",
+			"the account level %d is not allowed to use the api end point: %s: %s",
 			userLevel, r.URL.Path, r.Method,
 		)
 		return errors.New(msg), 403

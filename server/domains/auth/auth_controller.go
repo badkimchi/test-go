@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"app/domains/user"
+	"app/domains/account"
 	"app/util/resp"
 	"encoding/json"
 	"github.com/go-chi/jwtauth"
@@ -11,11 +11,11 @@ import (
 type Controller struct {
 	tokenAuth *jwtauth.JWTAuth
 	serv      *AuthService
-	accServ   *user.UserService
+	accServ   *account.AccountService
 }
 
 func NewAuthController(
-	tokenAuth *jwtauth.JWTAuth, hAuth *AuthService, accServ *user.UserService,
+	tokenAuth *jwtauth.JWTAuth, hAuth *AuthService, accServ *account.AccountService,
 ) *Controller {
 	return &Controller{
 		tokenAuth: tokenAuth,
@@ -31,45 +31,45 @@ func (c *Controller) TestGet(w http.ResponseWriter, r *http.Request) {
 
 //
 //// GetAuthToken
-//// @Summary Exchange password and userID with security token.
+//// @Summary Exchange password and accountID with security token.
 //// @Tags Auth
 //// @Description depending on whether two-factor auth is enabled, api will return pre-auth token or auth token
 //// @Accept  json
 //// @Produce  json
-//// @Param user body user.UserCredentials true "UserCredentials"
+//// @Param account body account.AccountCredentials true "AccountCredentials"
 //// @Success 200
 //// @Failure 400
 //// @Router /auth/token [post]
 //func (c *Controller) GetAuthToken(w http.ResponseWriter, r *http.Request) {
 //	decoder := json.NewDecoder(r.Body)
-//	var req user.UserCredentials
+//	var req account.AccountCredentials
 //	err := decoder.Decode(&req)
 //	if err == io.EOF {
 //		resp.Bad(w, r, errors.New("EOF: unable to parse request body"))
 //		return
 //	}
-//	if err != nil || req.UserID == "" {
+//	if err != nil || req.AccountID == "" {
 //		resp.Bad(w, r, errors.New("name and password must be passed in:"+err.Error()))
 //		return
 //	}
 //
-//	authenticated, err := c.serv.AuthenticateByUserIDAndPWD(req.UserID, req.PWD)
+//	authenticated, err := c.serv.AuthenticateByAccountIDAndPWD(req.AccountID, req.PWD)
 //	if err != nil {
 //		resp.Bad(w, r, err)
 //		return
 //	}
 //
 //	if authenticated == false {
-//		resp.Bad(w, r, errors.New("wrong password or user ID, please try again"))
+//		resp.Bad(w, r, errors.New("wrong password or account ID, please try again"))
 //		return
 //	}
 //
-//	user, err := c.accServ.GetUserByUserID(req.UserID)
+//	account, err := c.accServ.GetAccountByAccountID(req.AccountID)
 //	if err != nil {
 //		resp.Bad(w, r, err)
 //		return
 //	}
-//	success, authToken, authTokenExpireTime, refreshToken, refreshTokenExpireTime, err := c.serv.GetTokensForUser(req.UserID)
+//	success, authToken, authTokenExpireTime, refreshToken, refreshTokenExpireTime, err := c.serv.GetTokensForAccount(req.AccountID)
 //	if err != nil {
 //		resp.Bad(w, r, errors.New("failed to create token,"+err.Error()))
 //		return
@@ -79,7 +79,7 @@ func (c *Controller) TestGet(w http.ResponseWriter, r *http.Request) {
 //		authToken := Token{AuthToken: authToken, Type: "auth", Expiration: authTokenExpireTime, RefreshToken: rToken}
 //		data := TokenWithPrivilegeTitleExposed{
 //			Token:          authToken,
-//			PrivilegeTitle: user.PrivilegeTitle,
+//			PrivilegeTitle: account.PrivilegeTitle,
 //		}
 //		resp.Data(w, r, data)
 //		return

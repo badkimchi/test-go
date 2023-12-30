@@ -1,10 +1,10 @@
 // import create from 'zustand';
 // import { persist } from 'zustand/middleware';
-// import { Account } from '../models/user';
+// import { Account } from '../models/account';
 //
 // type AccountState = {
 //   current: Account | null;
-//   setUser: (user: Account) => void;
+//   setUser: (account: Account) => void;
 //   logout: () => void;
 // };
 //
@@ -12,11 +12,11 @@
 //   persist<AccountState>(
 //     (set, _) => ({
 //       current: null,
-//       setUser: (user) => set({ current: user }),
+//       setUser: (account) => set({ current: account }),
 //       logout: () => set({ current: null }),
 //     }),
 //     {
-//       name: 'user-storage',
+//       name: 'account-storage',
 //     }
 //   )
 // );

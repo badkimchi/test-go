@@ -8,8 +8,10 @@ import (
 	"database/sql"
 )
 
-type Author struct {
-	ID   int64          `json:"id"`
-	Name string         `json:"name"`
-	Bio  sql.NullString `json:"bio"`
+type Account struct {
+	Accountid int64          `json:"accountid"`
+	Name      sql.NullString `json:"name"`
+	Password  string         `json:"password"`
+	Level     sql.NullInt32  `json:"level"`
+	Email     sql.NullString `json:"email"`
 }

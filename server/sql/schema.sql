@@ -1,6 +1,8 @@
-CREATE TABLE authors
+CREATE TABLE Account
 (
-    id   BIGSERIAL PRIMARY KEY,
-    name text   NOT NULL,
-    bio  text
+    AccountID BIGSERIAL PRIMARY KEY,
+    Name      text,
+    Password  text NOT NULL,
+    Level     integer DEFAULT 0,
+    Email     text
 );

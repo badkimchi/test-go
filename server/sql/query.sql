@@ -1,24 +1,21 @@
--- name: GetAuthor :one
+-- name: GetAccount :one
 SELECT *
-FROM authors
-WHERE id = $1 LIMIT 1;
+FROM Account
+WHERE AccountID = $1 LIMIT 1;
 
--- name: ListAuthors :many
-SELECT *
-FROM authors
-ORDER BY name;
+-- name: CreateAccount :one
+INSERT INTO Account (Name, Password, Level, Email)
+VALUES ($1, $2, $3, $4) RETURNING *;
 
--- name: CreateAuthor :one
-INSERT INTO authors (name, bio)
-VALUES ($1, $2) RETURNING *;
+-- name: UpdateAccount :exec
+UPDATE Account
+SET Name     = $2,
+    Password = $3,
+    Level    = $4,
+    Email    = $5
+WHERE AccountID = $1;
 
--- name: UpdateAuthor :exec
-UPDATE authors
-set name = $2,
-    bio  = $3
-WHERE id = $1;
-
--- name: DeleteAuthor :exec
+-- name: DeleteAccount :exec
 DELETE
-FROM authors
-WHERE id = $1;
+FROM Account
+WHERE AccountID = $1;

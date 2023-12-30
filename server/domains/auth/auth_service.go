@@ -1,25 +1,25 @@
 package auth
 
 import (
-	"app/domains/user"
+	"app/domains/account"
 	"github.com/go-chi/jwtauth"
 	"time"
 )
 
 type AuthService struct {
 	tokenAuth            *jwtauth.JWTAuth
-	userServ             *user.UserService
+	accountServ          *account.AccountService
 	authTokenDuration    time.Duration
 	refreshTokenDuration time.Duration
 }
 
 func NewAuthService(
 	tAuth *jwtauth.JWTAuth,
-	userServ *user.UserService,
+	accountServ *account.AccountService,
 ) *AuthService {
 	return &AuthService{
 		tokenAuth:            tAuth,
-		userServ:             userServ,
+		accountServ:          accountServ,
 		authTokenDuration:    time.Hour * 12,
 		refreshTokenDuration: time.Hour * 13,
 	}
@@ -37,8 +37,8 @@ func (s *AuthService) refreshTokenExpireTime() time.Time {
 }
 
 //
-//func (s *AuthService) AuthenticateByUserIDAndPWD(id string, pwd string) (bool, error) {
-//	return s.userServ.AuthenticateByUserIDAndPWD(id, pwd)
+//func (s *AuthService) AuthenticateByAccountIDAndPWD(id string, pwd string) (bool, error) {
+//	return s.accountServ.AuthenticateByAccountIDAndPWD(id, pwd)
 //}
 //
 //func (s *AuthService) authenticatePreToken(tokenString string) error {
@@ -56,7 +56,7 @@ func (s *AuthService) refreshTokenExpireTime() time.Time {
 //	if len(id) == 0 || len(pwd) == 0 {
 //		return errors.New("invalid pre-auth token. id or pwd contains zero-length string")
 //	}
-//	passed, err := s.userServ.AuthenticateByUserIDAndPWD(id, pwd)
+//	passed, err := s.accountServ.AuthenticateByAccountIDAndPWD(id, pwd)
 //	if !passed || err != nil {
 //		return err
 //	}
@@ -74,7 +74,7 @@ func (s *AuthService) refreshTokenExpireTime() time.Time {
 //	return email
 //}
 //
-//func (s *AuthService) getUserIdFromToken(tokenString string) string {
+//func (s *AuthService) getAccountIdFromToken(tokenString string) string {
 //	token, err := s.tokenAuth.Decode(tokenString)
 //	if token == nil || err != nil {
 //		return ""
@@ -84,48 +84,48 @@ func (s *AuthService) refreshTokenExpireTime() time.Time {
 //	return id
 //}
 //
-//func (s *AuthService) getUser(r *http.Request) (user.User, error) {
+//func (s *AuthService) getAccount(r *http.Request) (account.Account, error) {
 //	_, claims, err := jwtauth.FromContext(r.Context())
 //	if err != nil {
-//		return user.User{}, err
+//		return account.Account{}, err
 //	}
 //	id := claims["id"].(string)
 //	if len(id) == 0 {
-//		return user.User{}, errors.New("id is blank")
+//		return account.Account{}, errors.New("id is blank")
 //	}
-//	return s.userServ.GetUserByUserID(id)
+//	return s.accountServ.GetAccountByAccountID(id)
 //}
 //
-//func (s *AuthService) getUserFromToken(tokenString string) (user.User, error) {
+//func (s *AuthService) getAccountFromToken(tokenString string) (account.Account, error) {
 //	token, err := s.tokenAuth.Decode(tokenString)
 //	if token == nil || err != nil {
-//		return user.User{}, nil
+//		return account.Account{}, nil
 //	}
 //	claims := token.PrivateClaims()
 //	id := fmt.Sprintf("%v", claims["id"])
 //	if len(id) == 0 {
-//		return user.User{}, errors.New("id is blank")
+//		return account.Account{}, errors.New("id is blank")
 //	}
-//	return s.userServ.GetUserByUserID(id)
+//	return s.accountServ.GetAccountByAccountID(id)
 //}
 //
-//func (s *AuthService) GetTokensForUser(userID string) (bool, string, string, string, string, error) {
-//	acc, err := s.userServ.GetUserByUserID(userID)
+//func (s *AuthService) GetTokensForAccount(accountID string) (bool, string, string, string, string, error) {
+//	acc, err := s.accountServ.GetAccountByAccountID(accountID)
 //	if err != nil {
 //		return false, "", "", "", "", err
 //	}
-//	return s.GetTokensForUserWithPrivilegeTitle(userID, acc.PrivilegeTitle)
+//	return s.GetTokensForAccountWithPrivilegeTitle(accountID, acc.PrivilegeTitle)
 //}
 
-func (s *AuthService) GetTokensForUserWithPrivilegeTitle(userID string, privilegeTitle string) (
+func (s *AuthService) GetTokensForAccountWithPrivilegeTitle(accountID string, privilegeTitle string) (
 	bool, string, string, string, string, error,
 ) {
-	authToken, authExpireTime := s.getAuthToken(userID, privilegeTitle)
-	refToken, refTokenExpireTime := s.getRefreshToken(userID, privilegeTitle)
+	authToken, authExpireTime := s.getAuthToken(accountID, privilegeTitle)
+	refToken, refTokenExpireTime := s.getRefreshToken(accountID, privilegeTitle)
 	return true, authToken, authExpireTime, refToken, refTokenExpireTime, nil
 }
 
-// User id is embedded in
+// Account id is embedded in
 func (s *AuthService) getAuthToken(id string, privilegeTitle string) (string, string) {
 	aTokenClaims := map[string]interface{}{
 		"id": id, "token_type": "auth", "privilege_title": privilegeTitle,
