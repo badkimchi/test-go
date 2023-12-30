@@ -1,38 +1,38 @@
-package account
+package user
 
 import (
 	"app/sql/db"
 	"context"
 )
 
-type AccountRepo struct {
+type UserRepo struct {
 	db *db.Queries
 }
 
-func NewAccountRepo(db *db.Queries) *AccountRepo {
-	return &AccountRepo{
+func NewUserRepo(db *db.Queries) *UserRepo {
+	return &UserRepo{
 		db: db,
 	}
 }
 
 //
-//func (r *AccountRepo) GetAccountByIDIncludingPassword(id uint) (Account, error) {
-//	var acc Account
+//func (r *UserRepo) GetUserByIDIncludingPassword(id uint) (User, error) {
+//	var acc User
 //	if err := r.db.Where("id = ?", id).First(&acc).Error; err != nil {
-//		return Account{}, l.Log(err)
+//		return User{}, l.Log(err)
 //	}
 //	return acc, nil
 //}
 //
-//func (r *AccountRepo) GetAccountByUserIncludingPassword(userID string) (Account, error) {
-//	var acc Account
+//func (r *UserRepo) GetUserByUserIncludingPassword(userID string) (User, error) {
+//	var acc User
 //	if err := r.db.Where("user_id = ?", userID).First(&acc).Error; err != nil {
-//		return Account{}, l.Log(errors.New("unable to find the matching user with is " + userID))
+//		return User{}, l.Log(errors.New("unable to find the matching user with is " + userID))
 //	}
 //	return acc, nil
 //}
 
-func (r *AccountRepo) GetAccountByUserID(userID int64) (db.Author, error) {
+func (r *UserRepo) GetUserByUserID(userID int64) (db.Author, error) {
 	acc, err := r.db.GetAuthor(context.Background(), userID)
 	if err != nil {
 		return db.Author{}, err
@@ -41,13 +41,13 @@ func (r *AccountRepo) GetAccountByUserID(userID int64) (db.Author, error) {
 }
 
 //
-//func (r *AccountRepo) GetAll() ([]Account, error) {
-//	var accs []Account
+//func (r *UserRepo) GetAll() ([]User, error) {
+//	var accs []User
 //	if err := r.db.Find(&accs).Error; err != nil {
 //		return accs, l.Log(err)
 //	}
 //
-//	var retAccs []Account
+//	var retAccs []User
 //	for _, acc := range accs {
 //		acc.PWD = "NOT-SHOWN"
 //		retAccs = append(retAccs, acc)
@@ -55,41 +55,41 @@ func (r *AccountRepo) GetAccountByUserID(userID int64) (db.Author, error) {
 //	return retAccs, nil
 //}
 
-//func (r *AccountRepo) Create(userID string, pwd string) (Account, error) {
+//func (r *UserRepo) Create(userID string, pwd string) (User, error) {
 //	//check if same name exists.
-//	var acc Account
+//	var acc User
 //	if err := r.db.Where("user_id = ?", userID).First(&acc).Error; err != nil && err.Error() != "record not found" {
-//		return Account{}, l.Log(err)
+//		return User{}, l.Log(err)
 //	}
-//	acc = Account{
+//	acc = User{
 //		UserID:         userID,
 //		PWD:            pwd,
 //		PrivilegeTitle: "monitor", //create with the lowest privilege and only allow admins to elevate privilege
 //	}
 //	if err := r.db.Create(&acc).Error; err != nil {
-//		return Account{}, l.Log(err)
+//		return User{}, l.Log(err)
 //	}
 //	acc.PWD = "NOT-SHOWN"
 //	return acc, nil
 //}
 //
-//func (r *AccountRepo) Delete(id uint) error {
-//	var acc Account
+//func (r *UserRepo) Delete(id uint) error {
+//	var acc User
 //	if err := r.db.Where("id = ?", id).First(&acc).Unscoped().Delete(&acc).Error; err != nil {
 //		return l.Log(err)
 //	}
 //	return nil
 //}
 //
-//func (r *AccountRepo) DeleteByUserId(id string) error {
-//	var acc Account
+//func (r *UserRepo) DeleteByUserId(id string) error {
+//	var acc User
 //	if err := r.db.Where("user_id = ?", id).First(&acc).Unscoped().Delete(&acc).Error; err != nil {
 //		return l.Log(err)
 //	}
 //	return nil
 //}
 //
-//func (r *AccountRepo) Save(acc *Account) error {
+//func (r *UserRepo) Save(acc *User) error {
 //	if err := r.db.Save(&acc).Error; err != nil {
 //		return l.Log(err)
 //	}

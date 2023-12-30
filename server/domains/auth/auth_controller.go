@@ -1,7 +1,7 @@
 package auth
 
 import (
-	"app/domains/account"
+	"app/domains/user"
 	"app/util/resp"
 	"encoding/json"
 	"github.com/go-chi/jwtauth"
@@ -11,11 +11,11 @@ import (
 type Controller struct {
 	tokenAuth *jwtauth.JWTAuth
 	serv      *AuthService
-	accServ   *account.AccountService
+	accServ   *user.UserService
 }
 
 func NewAuthController(
-	tokenAuth *jwtauth.JWTAuth, hAuth *AuthService, accServ *account.AccountService,
+	tokenAuth *jwtauth.JWTAuth, hAuth *AuthService, accServ *user.UserService,
 ) *Controller {
 	return &Controller{
 		tokenAuth: tokenAuth,
@@ -36,13 +36,13 @@ func (c *Controller) TestGet(w http.ResponseWriter, r *http.Request) {
 //// @Description depending on whether two-factor auth is enabled, api will return pre-auth token or auth token
 //// @Accept  json
 //// @Produce  json
-//// @Param account body account.AccountCredentials true "AccountCredentials"
+//// @Param user body user.UserCredentials true "UserCredentials"
 //// @Success 200
 //// @Failure 400
 //// @Router /auth/token [post]
 //func (c *Controller) GetAuthToken(w http.ResponseWriter, r *http.Request) {
 //	decoder := json.NewDecoder(r.Body)
-//	var req account.AccountCredentials
+//	var req user.UserCredentials
 //	err := decoder.Decode(&req)
 //	if err == io.EOF {
 //		resp.Bad(w, r, errors.New("EOF: unable to parse request body"))
@@ -64,7 +64,7 @@ func (c *Controller) TestGet(w http.ResponseWriter, r *http.Request) {
 //		return
 //	}
 //
-//	user, err := c.accServ.GetAccountByUserID(req.UserID)
+//	user, err := c.accServ.GetUserByUserID(req.UserID)
 //	if err != nil {
 //		resp.Bad(w, r, err)
 //		return

@@ -7,8 +7,8 @@
 package main
 
 import (
-	"app/domains/account"
 	"app/domains/auth"
+	"app/domains/user"
 	"app/sql/db"
 	"github.com/go-chi/jwtauth"
 )
@@ -20,12 +20,12 @@ import (
 // Injectors from wire.go:
 
 func controllers(jwtAuth *jwtauth.JWTAuth, queries *db.Queries) (reqControllers, error) {
-	accountRepo := account.NewAccountRepo(queries)
-	accountService := account.NewAccountService(accountRepo)
-	authService := auth.NewAuthService(jwtAuth, accountService)
-	controller := auth.NewAuthController(jwtAuth, authService, accountService)
-	accountController := account.NewAccountController(accountService)
-	mainReqControllers := newReqControllers(controller, accountController)
+	userRepo := user.NewUserRepo(queries)
+	userService := user.NewUserService(userRepo)
+	authService := auth.NewAuthService(jwtAuth, userService)
+	controller := auth.NewAuthController(jwtAuth, authService, userService)
+	userController := user.NewUserController(userService)
+	mainReqControllers := newReqControllers(controller, userController)
 	return mainReqControllers, nil
 }
 
@@ -33,12 +33,12 @@ func controllers(jwtAuth *jwtauth.JWTAuth, queries *db.Queries) (reqControllers,
 
 type reqControllers struct {
 	AuthC *auth.Controller
-	AccC  *account.AccountController
+	AccC  *user.UserController
 }
 
 func newReqControllers(
 	authC *auth.Controller,
-	accC *account.AccountController,
+	accC *user.UserController,
 ) reqControllers {
 	return reqControllers{
 		AuthC: authC,

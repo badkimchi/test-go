@@ -1,22 +1,22 @@
-package account
+package user
 
-type Account struct {
+type User struct {
 	UserID         string `gorm:"unique;not null;type:varchar(100);"` // set member number to unique and not null
 	PWD            string
 	PrivilegeTitle string `example:"monitor, manager, admin"`
 	Email          string
 }
 
-type AccountChangePasswordDto struct {
+type UserChangePasswordDto struct {
 	OldPassword string
 	NewPassword string
 }
 
-type AccountArrayDto struct {
-	Accounts []Account
+type UserArrayDto struct {
+	Users []User
 }
 
-type AccountCredentials struct {
+type UserCredentials struct {
 	UserID       string `json:"userID" example:"admin"`
 	PWD          string `json:"pwd" example:"admin"`
 	Email        string `json:"email"`
