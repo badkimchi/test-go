@@ -10,12 +10,12 @@ import (
 
 type Controller struct {
 	tokenAuth *jwtauth.JWTAuth
-	serv      *AuthService
-	accServ   *account.AccountService
+	serv      IAuthService
+	accServ   account.IAccountService
 }
 
 func NewAuthController(
-	tokenAuth *jwtauth.JWTAuth, hAuth *AuthService, accServ *account.AccountService,
+	tokenAuth *jwtauth.JWTAuth, hAuth IAuthService, accServ account.IAccountService,
 ) *Controller {
 	return &Controller{
 		tokenAuth: tokenAuth,
@@ -107,7 +107,7 @@ func (c *Controller) RefreshWithRefreshToken(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	_, refreshToken, refreshTokenExpiration := c.serv.ExchangeRefreshToken(req.RefreshToken)
+	_, refreshToken, refreshTokenExpiration := c.serv.exchangeRefreshToken(req.RefreshToken)
 	rToken := RefreshToken{
 		RefreshToken: refreshToken,
 		Expiration:   refreshTokenExpiration,
