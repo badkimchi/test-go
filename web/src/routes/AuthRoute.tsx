@@ -14,5 +14,5 @@ export const AuthRoute: React.FC<IProps> = ({ children }) => {
     return <>{children}</>;
   }
 
-  return <Navigate to="/login" />;
+  return <Navigate to="/signin" />;
 };
