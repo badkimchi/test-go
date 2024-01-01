@@ -65,10 +65,13 @@ func defineAPIRoutes(cont reqControllers, mux *chi.Mux, token *jwtauth.JWTAuth) 
 		public.Use(middleware.Timeout(time.Second * 4))
 		public.Get("/test", cont.AuthC.TestGet)
 	})
-	mux.Route("/api", func(private chi.Router) {
-		private.Use(middleware.Timeout(time.Second * 10))
-		private.Use(jwtauth.Verifier(token))
-		private.Use(middleware.Authenticator(1))
+	mux.Route("/api", func(api chi.Router) {
+		api.Use(middleware.Timeout(time.Second * 10))
+		api.Use(jwtauth.Verifier(token))
+		api.Use(middleware.Authenticator(1))
+
+		api.Get("/accounts/{id}", cont.AccC.GetAccount)
+
 	})
 }
 

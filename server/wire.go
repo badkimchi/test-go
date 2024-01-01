@@ -40,6 +40,8 @@ func controllers(jwtAuth *jwtauth.JWTAuth, queries *db.Queries) (
 		account.NewAccountController,
 		account.NewAccountService,
 		account.NewAccountRepo,
+		wire.Bind(new(account.IAccountService), new(*account.AccountService)),
+		wire.Bind(new(account.IAccountRepo), new(*account.AccountRepo)),
 		newReqControllers,
 	)
 	return reqControllers{}, nil

@@ -34,15 +34,6 @@ func main() {
 	}
 	queries := db.New(conn)
 
-	user, err := queries.GetAccount(context.Background(), 1)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Println(user.Accountid)
-	fmt.Println(user.Password)
-	fmt.Println(user.Email)
-	fmt.Println(user.Level)
-
 	logger := util.NewLogger(os.Stdout, cfg.LogLevel)
 	otelShutdown, err := SetupOTelSDK(context.Background(), cfg)
 	if err != nil {

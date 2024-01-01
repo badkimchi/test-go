@@ -1,18 +1,27 @@
 package account
 
-type AccountService struct {
-	repo *AccountRepo
+import (
+	"app/sql/db"
+)
+
+type IAccountService interface {
+	GetAccount(id int) (db.Account, error)
 }
 
-func NewAccountService(repo *AccountRepo) *AccountService {
+type AccountService struct {
+	repo IAccountRepo
+}
+
+func NewAccountService(repo IAccountRepo) *AccountService {
 	return &AccountService{
 		repo: repo,
 	}
 }
 
-//func (s *AccountService) GetAccountByAccountID(accountID string) (Account, error) {
-//	return s.repo.GetAccountByAccountID(accountID)
-//}
+func (s *AccountService) GetAccount(accountID int) (db.Account, error) {
+	return s.repo.Get(int64(accountID))
+}
+
 //
 //func (s *AccountService) GetAccountByAccountIDIncludingPassword(accountID string) (Account, error) {
 //	return s.repo.GetAccountByAccountIncludingPassword(accountID)

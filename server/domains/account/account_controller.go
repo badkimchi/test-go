@@ -1,39 +1,45 @@
 package account
 
+import (
+	"app/util/resp"
+	"errors"
+	"github.com/go-chi/chi"
+	"net/http"
+	"strconv"
+)
+
 type AccountController struct {
-	serv *AccountService
+	serv IAccountService
 }
 
 func NewAccountController(
-	serv *AccountService,
+	serv IAccountService,
 ) *AccountController {
 	return &AccountController{
 		serv: serv,
 	}
 }
 
-//
-//// GetAccount
-//// @Security ApiKeyAuth
-//// @Summary Gets an account details
-//// @Tags AccountAccounts
-//// @Description Gets an account details
-//// @Accept  json
-//// @Produce  json
-//// @Param id path int true "id"
-//// @Success 200
-//// @Failure 400
-//// @Router /accounts/{id} [get]
-//func (c *AccountController) GetAccount(w http.ResponseWriter, r *http.Request) {
-//	accID := chi.URLParam(r, "id")
-//	acc, err := c.serv.GetAccountByAccountID(accID)
-//	if err != nil {
-//		resp.Bad(w, r, err)
-//		return
-//	}
-//
-//	resp.Data(w, r, acc)
-//}
+func (c *AccountController) GetAccount(w http.ResponseWriter, r *http.Request) {
+	idStr := chi.URLParam(r, "id")
+	if len(idStr) == 0 {
+		resp.Bad(w, r, errors.New("id must be set"))
+		return
+	}
+
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		resp.Bad(w, r, err)
+		return
+	}
+	acc, err := c.serv.GetAccount(id)
+	if err != nil {
+		resp.Bad(w, r, err)
+		return
+	}
+
+	resp.Data(w, r, acc)
+}
 
 //// DeleteAccount
 //// @Security ApiKeyAuth
