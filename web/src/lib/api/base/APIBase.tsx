@@ -1,5 +1,4 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from "axios";
-import User from "../../models/User.tsx";
 
 export interface ResponseObject<T = any> {
     message: string;
@@ -40,7 +39,7 @@ export class APIBase {
                 error.response?.data?.data?.indexOf("token is unauthorized") > -1)) {
             error.response.data = {message: error.response?.data?.data}
             window.location.href = "/signin";
-            User.signOut();
+            // User.signOut();
         }
 
         return Promise.reject(error.response?.data?.message);
@@ -55,26 +54,18 @@ export class APIBase {
     }
 
     public get<T, R = BaseResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
-        url = APIBase.UrlWithDebugParam(url);
         return this.api.get(url, config);
     }
 
     public delete<T, R = BaseResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
-        url = APIBase.UrlWithDebugParam(url);
         return this.api.delete(url, config);
     }
 
-    public head<T, R = BaseResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
-        return this.api.head(url, config);
-    }
-
     public post<T, R = BaseResponse<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R> {
-        url = APIBase.UrlWithDebugParam(url);
         return this.api.post(url, data, config);
     }
 
     public put<T, R = BaseResponse<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R> {
-        url = APIBase.UrlWithDebugParam(url);
         return this.api.put(url, data, config);
     }
 
@@ -83,22 +74,7 @@ export class APIBase {
         return this.api.post(url, data, this.config);
     }
 
-    public putFile<T, R = BaseResponse<T>>(url: string, data?: any, config?: AxiosRequestConfig): Promise<R> {
-        return this.api.put(url, data, config);
-    }
-
     public patch<T, R = BaseResponse<T>>(url: string, data?: string, config?: AxiosRequestConfig): Promise<R> {
         return this.api.patch(url, data, config);
-    }
-
-    private static UrlWithDebugParam(url: string): string {
-        if (User.isDeveloper()) {
-            if (url?.includes('?')) {
-                url += "&debug=1"
-            } else {
-                url += "?debug=1"
-            }
-        }
-        return url
     }
 }

@@ -1,4 +1,4 @@
-import User from "../../models/User.tsx";
+import {userStore} from "../../stores/userStore.ts";
 
 export const devMode = window.location.host.includes('localhost');
 const devhost = 'http://localhost:3000';
@@ -9,7 +9,7 @@ export const APIConfig = {
     baseURL: url + "/api/",
     contentType: "application/json",
     headers: {
-        "Authorization": "Bearer " + User.getAuthToken(),
+        "Authorization": "Bearer " + userStore.getState().current,
         "Accept": "application/json",
         "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
         "Pragma": "no-cache",
