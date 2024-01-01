@@ -1,7 +1,7 @@
 import User from "../../models/User.tsx";
 
 export const devMode = window.location.host.includes('localhost');
-let devhost = 'http://localhost:3000';
+const devhost = 'http://localhost:3000';
 const prodAPIHost = window.location.origin;
 export const url = devMode ? devhost : prodAPIHost;
 export const APIConfig = {

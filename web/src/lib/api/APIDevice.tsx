@@ -1,14 +1,18 @@
 import {APIBase} from './base/APIBase.tsx';
 import {APIConfig} from './base/conf.tsx';
+import {AxiosRequestConfig} from "axios";
+
+const publicApiPath = {...APIConfig}
+publicApiPath.baseURL = publicApiPath.baseURL.substring(0, publicApiPath.baseURL.length - "api/".length)
 
 export class APIDevice extends APIBase {
 
-    constructor(base: any) {
+    constructor(base: AxiosRequestConfig) {
         super(base);
     }
 
     public test(): Promise<string> {
-        return this.get<string>('/test')
+        return this.get<string>('/public/test')
             .then((response) => {
                 const {data} = response;
                 return data?.data;
@@ -19,5 +23,5 @@ export class APIDevice extends APIBase {
     }
 }
 
-export default new APIDevice(APIConfig);
+export default new APIDevice(publicApiPath);
 
