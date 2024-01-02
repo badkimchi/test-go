@@ -2,7 +2,7 @@ import {APIBase} from './base/APIBase.tsx';
 import {APIConfig} from './base/conf.tsx';
 import {AxiosRequestConfig} from "axios";
 
-export class APIAccount extends APIBase {
+export class API extends APIBase {
 
     constructor(base: AxiosRequestConfig) {
         super(base);
@@ -19,6 +19,7 @@ export class APIAccount extends APIBase {
             });
     }
 }
+const api = new API(APIConfig)
 
-export default new APIAccount(APIConfig);
+export {api as APIAccount};
 

@@ -6,7 +6,7 @@ import {Token} from "../models/token.ts";
 const publicApiPath = {...APIConfig}
 publicApiPath.baseURL = publicApiPath.baseURL.substring(0, publicApiPath.baseURL.length - "api/".length)
 
-export class APIAuth extends APIBase {
+export class API extends APIBase {
 
     constructor(base: AxiosRequestConfig) {
         super(base);
@@ -26,5 +26,5 @@ export class APIAuth extends APIBase {
     }
 }
 
-export default new APIAuth(publicApiPath);
-
+const api = new API(publicApiPath);
+export {api as APIAuth};

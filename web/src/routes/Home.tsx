@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {AppLayout} from '../components/layouts/AppLayout';
 import {loginInfoStore} from "../lib/stores/loginInfoStore.ts";
-import APIAccount from "../lib/api/APIAccount.tsx";
+import {APIAccount} from "../lib/api/APIAccount.tsx";
 
 export const Home: React.FC = () => {
     const logout = loginInfoStore(state => state.logout);
