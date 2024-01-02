@@ -42,22 +42,14 @@ func defineStaticRoutes(mux *chi.Mux) {
 	workDir := filepath.Dir(ex)
 	feDir := "web/dist"
 	feBasePath := path.Join(workDir, feDir)
-	mux.Get(
-		"/assets/*", func(w http.ResponseWriter, r *http.Request) {
-			fullFilePath := path.Join(feBasePath, r.URL.Path)
-			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-			http.ServeFile(w, r, fullFilePath)
-		},
-	)
-
-	mux.Get(
-		"/", func(w http.ResponseWriter, r *http.Request) {
-			fullFilePath := path.Join(feBasePath, "index.html")
-			w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
-			http.ServeFile(w, r, fullFilePath)
-			//w.Write([]byte(fullFilePath))
-		},
-	)
+	indexFilePath := path.Join(feBasePath, "index.html")
+	mux.Get("/assets/*", func(w http.ResponseWriter, r *http.Request) {
+		fullFilePath := path.Join(feBasePath, r.URL.Path)
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		http.ServeFile(w, r, fullFilePath)
+	})
+	mux.Get("/", serveFileHandler(indexFilePath))
+	mux.NotFound(serveFileHandler(indexFilePath))
 }
 
 func defineAPIRoutes(cont reqControllers, mux *chi.Mux, token *jwtauth.JWTAuth) {
@@ -75,4 +67,11 @@ func defineAPIRoutes(cont reqControllers, mux *chi.Mux, token *jwtauth.JWTAuth) 
 
 func handleHealthCheck(w http.ResponseWriter, _ *http.Request) {
 	w.WriteHeader(http.StatusOK)
+}
+
+func serveFileHandler(fPath string) func(w http.ResponseWriter, r *http.Request) {
+	return func(w http.ResponseWriter, r *http.Request) {
+		w.Header().Set("Cache-Control", "no-cache, no-store, must-revalidate")
+		http.ServeFile(w, r, fPath)
+	}
 }
