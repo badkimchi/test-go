@@ -1,6 +1,6 @@
 import {Token} from "./token.ts";
 
-export class Account {
+export class LoginInfo {
   id: string = '';
   username: string = '';
   email: string = '';

@@ -1,4 +1,5 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from "axios";
+import {userStore} from "../../stores/userStore.ts";
 
 export interface ResponseObject<T = any> {
     message: string;
@@ -19,6 +20,8 @@ export class APIBase {
 
         //Middleware run before request is sent.
         this.api.interceptors.request.use((param: InternalAxiosRequestConfig) => {
+            // jwt
+            param.headers['Authorization'] = "Bearer " + userStore.getState().current?.authToken.token;
             return param
         });
 
@@ -39,7 +42,7 @@ export class APIBase {
                 error.response?.data?.data?.indexOf("token is unauthorized") > -1)) {
             error.response.data = {message: error.response?.data?.data}
             window.location.href = "/signin";
-            // User.signOut();
+            // LoginInfo.signOut();
         }
 
         return Promise.reject(error.response?.data?.message);
@@ -54,7 +57,6 @@ export class APIBase {
     }
 
     public get<T, R = BaseResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
-        console.log(config);
         return this.api.get(url, config);
     }
 

@@ -1,10 +1,10 @@
 import {create} from 'zustand';
 import {persist} from 'zustand/middleware';
-import {Account} from '../models/account';
+import {LoginInfo} from '../models/loginInfo.ts';
 
 type AccountState = {
-    current: Account | null;
-    setUser: (account: Account) => void;
+    current: LoginInfo | null;
+    setUser: (account: LoginInfo) => void;
     logout: () => void;
 };
 

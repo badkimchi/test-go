@@ -23,11 +23,11 @@ func (s *AccountService) GetAccount(accountID int) (db.Account, error) {
 }
 
 //
-//func (s *AccountService) GetAccountByAccountIDIncludingPassword(accountID string) (Account, error) {
+//func (s *AccountService) GetAccountByAccountIDIncludingPassword(accountID string) (LoginInfo, error) {
 //	return s.repo.GetAccountByAccountIncludingPassword(accountID)
 //}
 //
-//func (s *AccountService) GetAllAccounts() ([]Account, error) {
+//func (s *AccountService) GetAllAccounts() ([]LoginInfo, error) {
 //	return s.repo.GetAll()
 //}
 //
@@ -35,7 +35,7 @@ func (s *AccountService) GetAccount(accountID int) (db.Account, error) {
 //UpdateAccounts
 //Note that this does not change password
 //*/
-//func (s *AccountService) UpdateAccounts(accounts []Account) ([]Account, error) {
+//func (s *AccountService) UpdateAccounts(accounts []LoginInfo) ([]LoginInfo, error) {
 //	for _, acc := range accounts {
 //		accOld, err := s.repo.GetAccountByIDIncludingPassword(acc.ID)
 //		if err != nil {
@@ -55,21 +55,21 @@ func (s *AccountService) GetAccount(accountID int) (db.Account, error) {
 //UpdateAccount
 //Note that this does not change password
 //*/
-//func (s *AccountService) UpdateAccount(acc Account, id int) (Account, error) {
+//func (s *AccountService) UpdateAccount(acc LoginInfo, id int) (LoginInfo, error) {
 //	accOld, err := s.repo.GetAccountByIDIncludingPassword(uint(id))
 //	if err != nil {
-//		return Account{}, err
+//		return LoginInfo{}, err
 //	}
 //	acc.PWD = accOld.PWD
 //	err = s.repo.Save(&acc)
 //	if err != nil {
-//		return Account{}, err
+//		return LoginInfo{}, err
 //	}
 //
 //	return acc, nil
 //}
 //
-//func (s *AccountService) UpdateAccountIncludingPassword(acc Account) error {
+//func (s *AccountService) UpdateAccountIncludingPassword(acc LoginInfo) error {
 //	err := s.repo.Save(&acc)
 //	if err != nil {
 //		return err
@@ -91,10 +91,10 @@ func (s *AccountService) GetAccount(accountID int) (db.Account, error) {
 //	return false, errors.New("incorrect password")
 //}
 //
-//func (s *AccountService) CreateAccount(accountID string, pwd string) (Account, error) {
+//func (s *AccountService) CreateAccount(accountID string, pwd string) (LoginInfo, error) {
 //	encPwd, err := u.GetEncryptedPassword(pwd)
 //	if err != nil {
-//		return Account{}, err
+//		return LoginInfo{}, err
 //	}
 //	return s.repo.Create(accountID, encPwd)
 //}

@@ -14,7 +14,6 @@ export const Home: React.FC = () => {
         APIAccount.getAccount()
             .then((resp) => {
                 console.log(resp);
-                setData(resp);
             })
             .catch(err => console.error(err));
     }, [])

@@ -10,7 +10,7 @@ type IAuthService interface {
 	setAuthTokenDuration(duration time.Duration)
 	authTokenExpireTime() time.Time
 	refreshTokenExpireTime() time.Time
-	getToken(accountID string, level int) Token
+	getToken(accountID string, level string) Token
 	//getAuthToken(id string, level string) (string, string)
 	//getRefreshToken(id string, level string) (string, string)
 	exchangeRefreshToken(tokenString string) (bool, string, string)
@@ -46,25 +46,31 @@ func (s *AuthService) refreshTokenExpireTime() time.Time {
 	return time.Now().Add(s.refreshTokenDuration)
 }
 
-func (s *AuthService) getToken(accountID string, level int) Token {
+func (s *AuthService) getToken(accountID string, level string) Token {
 	authToken, expire := s.authToken(accountID, level)
 	refToken, refExpire := s.getRefreshToken(accountID, level)
 	rToken := RefreshToken{Token: refToken, Expiration: refExpire}
 	return Token{Token: authToken, Expiration: expire, RefreshToken: rToken}
 }
 
-// Account id is embedded in
-func (s *AuthService) authToken(id string, level int) (string, string) {
+// LoginInfo id is embedded in
+func (s *AuthService) authToken(id string, level string) (string, string) {
 	aTokenClaims := map[string]interface{}{
-		"id": id, "token_type": "auth", "level": level,
+		"id":         id,
+		"token_type": "auth",
+		"level":      level,
 	}
 	jwtauth.SetExpiry(aTokenClaims, s.authTokenExpireTime())
 	_, authToken, _ := s.tokenAuth.Encode(aTokenClaims)
 	return authToken, s.authTokenExpireTime().String()
 }
 
-func (s *AuthService) getRefreshToken(id string, level int) (string, string) {
-	rTokenClaims := map[string]interface{}{"id": id, "token_type": "refresh", "level": level}
+func (s *AuthService) getRefreshToken(id string, level string) (string, string) {
+	rTokenClaims := map[string]interface{}{
+		"id":         id,
+		"token_type": "refresh",
+		"level":      level,
+	}
 	jwtauth.SetExpiry(rTokenClaims, s.refreshTokenExpireTime())
 	_, refreshToken, _ := s.tokenAuth.Encode(rTokenClaims)
 	return refreshToken, s.refreshTokenExpireTime().String()
@@ -79,7 +85,7 @@ func (s *AuthService) exchangeRefreshToken(tokenString string) (bool, string, st
 	if claims["token_type"] != "refresh" {
 		return false, "This is not s refresh token", ""
 	}
-	rToken, expirationTime := s.getRefreshToken(claims["id"].(string), claims["level"].(int))
+	rToken, expirationTime := s.getRefreshToken(claims["id"].(string), claims["level"].(string))
 	return true, rToken, expirationTime
 }
 
@@ -131,27 +137,27 @@ func (s *AuthService) exchangeRefreshToken(tokenString string) (bool, string, st
 //	return id
 //}
 //
-//func (s *AuthService) getAccount(r *http.Request) (account.Account, error) {
+//func (s *AuthService) getAccount(r *http.Request) (account.LoginInfo, error) {
 //	_, claims, err := jwtauth.FromContext(r.Context())
 //	if err != nil {
-//		return account.Account{}, err
+//		return account.LoginInfo{}, err
 //	}
 //	id := claims["id"].(string)
 //	if len(id) == 0 {
-//		return account.Account{}, errors.New("id is blank")
+//		return account.LoginInfo{}, errors.New("id is blank")
 //	}
 //	return s.accountServ.GetAccountByAccountID(id)
 //}
 //
-//func (s *AuthService) getAccountFromToken(tokenString string) (account.Account, error) {
+//func (s *AuthService) getAccountFromToken(tokenString string) (account.LoginInfo, error) {
 //	token, err := s.tokenAuth.Decode(tokenString)
 //	if token == nil || err != nil {
-//		return account.Account{}, nil
+//		return account.LoginInfo{}, nil
 //	}
 //	claims := token.PrivateClaims()
 //	id := fmt.Sprintf("%v", claims["id"])
 //	if len(id) == 0 {
-//		return account.Account{}, errors.New("id is blank")
+//		return account.LoginInfo{}, errors.New("id is blank")
 //	}
 //	return s.accountServ.GetAccountByAccountID(id)
 //}

@@ -61,7 +61,7 @@ func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 	//}
 
 	// @todo user level
-	level := 0
+	level := "0"
 	token := c.serv.getToken(req.UserID, level)
 	resp.Data(w, r, token)
 }

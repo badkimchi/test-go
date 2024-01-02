@@ -1,6 +1,6 @@
 package account
 
-//type Account struct {
+//type LoginInfo struct {
 //	AccountID      string `gorm:"unique;not null;type:varchar(100);"` // set member number to unique and not null
 //	PWD            string
 //	PrivilegeTitle string `example:"monitor, manager, admin"`
@@ -13,7 +13,7 @@ package account
 //}
 //
 //type AccountArrayDto struct {
-//	Accounts []Account
+//	Accounts []LoginInfo
 //}
 //
 //type AccountCredentials struct {

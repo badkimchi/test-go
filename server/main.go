@@ -42,7 +42,7 @@ func main() {
 	}
 
 	var tokenAuth *jwtauth.JWTAuth
-	var signKey = fmt.Sprintf("veryDifficultSecretKeyNoOneCanImagine")
+	var signKey = fmt.Sprintf("veryDifficultSecretKeyNoOneCanImagine") //@todo get sign key from env
 	tokenAuth = jwtauth.New("HS256", []byte(signKey), nil)
 
 	mux := chi.NewMux()

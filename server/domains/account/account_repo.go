@@ -20,18 +20,18 @@ func NewAccountRepo(db *db.Queries) *AccountRepo {
 }
 
 //
-//func (r *AccountRepo) GetAccountByIDIncludingPassword(id uint) (Account, error) {
-//	var acc Account
+//func (r *AccountRepo) GetAccountByIDIncludingPassword(id uint) (LoginInfo, error) {
+//	var acc LoginInfo
 //	if err := r.db.Where("id = ?", id).First(&acc).Error; err != nil {
-//		return Account{}, l.Log(err)
+//		return LoginInfo{}, l.Log(err)
 //	}
 //	return acc, nil
 //}
 //
-//func (r *AccountRepo) GetAccountByAccountIncludingPassword(accountID string) (Account, error) {
-//	var acc Account
+//func (r *AccountRepo) GetAccountByAccountIncludingPassword(accountID string) (LoginInfo, error) {
+//	var acc LoginInfo
 //	if err := r.db.Where("account_id = ?", accountID).First(&acc).Error; err != nil {
-//		return Account{}, l.Log(errors.New("unable to find the matching account with is " + accountID))
+//		return LoginInfo{}, l.Log(errors.New("unable to find the matching account with is " + accountID))
 //	}
 //	return acc, nil
 //}
@@ -45,13 +45,13 @@ func (r *AccountRepo) Get(accountID int64) (db.Account, error) {
 }
 
 //
-//func (r *AccountRepo) GetAll() ([]Account, error) {
-//	var accs []Account
+//func (r *AccountRepo) GetAll() ([]LoginInfo, error) {
+//	var accs []LoginInfo
 //	if err := r.db.Find(&accs).Error; err != nil {
 //		return accs, l.Log(err)
 //	}
 //
-//	var retAccs []Account
+//	var retAccs []LoginInfo
 //	for _, acc := range accs {
 //		acc.PWD = "NOT-SHOWN"
 //		retAccs = append(retAccs, acc)
@@ -59,26 +59,26 @@ func (r *AccountRepo) Get(accountID int64) (db.Account, error) {
 //	return retAccs, nil
 //}
 
-//func (r *AccountRepo) Create(accountID string, pwd string) (Account, error) {
+//func (r *AccountRepo) Create(accountID string, pwd string) (LoginInfo, error) {
 //	//check if same name exists.
-//	var acc Account
+//	var acc LoginInfo
 //	if err := r.db.Where("account_id = ?", accountID).First(&acc).Error; err != nil && err.Error() != "record not found" {
-//		return Account{}, l.Log(err)
+//		return LoginInfo{}, l.Log(err)
 //	}
-//	acc = Account{
+//	acc = LoginInfo{
 //		AccountID:         accountID,
 //		PWD:            pwd,
 //		PrivilegeTitle: "monitor", //create with the lowest privilege and only allow admins to elevate privilege
 //	}
 //	if err := r.db.Create(&acc).Error; err != nil {
-//		return Account{}, l.Log(err)
+//		return LoginInfo{}, l.Log(err)
 //	}
 //	acc.PWD = "NOT-SHOWN"
 //	return acc, nil
 //}
 //
 //func (r *AccountRepo) Delete(id uint) error {
-//	var acc Account
+//	var acc LoginInfo
 //	if err := r.db.Where("id = ?", id).First(&acc).Unscoped().Delete(&acc).Error; err != nil {
 //		return l.Log(err)
 //	}
@@ -86,14 +86,14 @@ func (r *AccountRepo) Get(accountID int64) (db.Account, error) {
 //}
 //
 //func (r *AccountRepo) DeleteByAccountId(id string) error {
-//	var acc Account
+//	var acc LoginInfo
 //	if err := r.db.Where("account_id = ?", id).First(&acc).Unscoped().Delete(&acc).Error; err != nil {
 //		return l.Log(err)
 //	}
 //	return nil
 //}
 //
-//func (r *AccountRepo) Save(acc *Account) error {
+//func (r *AccountRepo) Save(acc *LoginInfo) error {
 //	if err := r.db.Save(&acc).Error; err != nil {
 //		return l.Log(err)
 //	}

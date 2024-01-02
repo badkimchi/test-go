@@ -1,15 +1,12 @@
-import {userStore} from "../../stores/userStore.ts";
-
 export const devMode = window.location.host.includes('localhost');
 const devhost = 'http://localhost:3000';
 const prodAPIHost = window.location.origin;
 export const url = devMode ? devhost : prodAPIHost;
 export const APIConfig = {
-    timeout: 5000,
+    timeout: 30000,
     baseURL: url + "/api/",
     contentType: "application/json",
     headers: {
-        "Authorization": "Bearer " + userStore.getState().current?.authToken,
         "Accept": "application/json",
         "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
         "Pragma": "no-cache",

@@ -70,7 +70,7 @@ func (c *AccountController) GetAccount(w http.ResponseWriter, r *http.Request) {
 //// @Description Update an account details. Note that this end point does not change password
 //// @Accept  json
 //// @Produce  json
-//// @Param account body Account Account "Account"
+//// @Param account body LoginInfo LoginInfo "LoginInfo"
 //// @Success 200
 //// @Failure 400
 //// @Router /accounts/{id} [put]
@@ -82,7 +82,7 @@ func (c *AccountController) GetAccount(w http.ResponseWriter, r *http.Request) {
 //	}
 //
 //	decoder := json.NewDecoder(r.Body)
-//	var req Account
+//	var req LoginInfo
 //	err = decoder.Decode(&req)
 //	if err != nil {
 //		resp.Bad(w, r, err)

@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"github.com/go-chi/jwtauth"
 	"net/http"
+	"strconv"
 	"strings"
 )
 
@@ -44,7 +45,11 @@ func authenticate(r *http.Request, requiredLevel int) (error, int) {
 	if claims["token_type"] != "auth" {
 		return errors.New("not a valid auth token"), 401
 	}
-	userLevel := claims["level"].(int)
+	userLevelStr := claims["level"].(string)
+	userLevel, err := strconv.Atoi(userLevelStr)
+	if err != nil {
+		return errors.New("unable to extract user level from the token"), 0
+	}
 	if !hasPermission(userLevel, requiredLevel) {
 		msg := fmt.Sprintf(
 			"the account level %d is not allowed to use the api end point: %s: %s",

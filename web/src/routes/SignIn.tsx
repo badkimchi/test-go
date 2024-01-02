@@ -3,7 +3,7 @@ import {AppLayout} from '../components/layouts/AppLayout';
 import {userStore} from "../lib/stores/userStore.ts";
 import {useNavigate} from "react-router-dom";
 import APIAuth from "../lib/api/APIAuth.tsx";
-import {Account} from "../lib/models/account.ts";
+import {LoginInfo} from "../lib/models/loginInfo.ts";
 import APIAccount from "../lib/api/APIAccount.tsx";
 
 export const SignIn: React.FC = () => {
@@ -12,7 +12,7 @@ export const SignIn: React.FC = () => {
     const signIn = () => {
         APIAuth.login()
             .then(resp => {
-                const user = new Account();
+                const user = new LoginInfo();
                 user.authToken = resp;
                 setUser(user);
                 console.log(user);
