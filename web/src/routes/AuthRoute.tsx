@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigate } from 'react-router-dom';
-import { userStore } from '../lib/stores/userStore';
+import { loginInfoStore } from '../lib/stores/loginInfoStore.ts';
 
 interface IProps {
   children: React.ReactNode;
@@ -8,7 +8,7 @@ interface IProps {
 
 export const AuthRoute: React.FC<IProps> = ({ children }) => {
   const storage = JSON.parse(localStorage.getItem('user-storage')!);
-  const current = userStore((state) => state.current);
+  const current = loginInfoStore((state) => state.current);
 
   if (current || storage?.state?.current) {
     return <>{children}</>;

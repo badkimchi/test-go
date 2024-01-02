@@ -1,5 +1,5 @@
 import axios, {AxiosInstance, AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig} from "axios";
-import {userStore} from "../../stores/userStore.ts";
+import {loginInfoStore} from "../../stores/loginInfoStore.ts";
 
 export interface ResponseObject<T = any> {
     message: string;
@@ -21,7 +21,7 @@ export class APIBase {
         //Middleware run before request is sent.
         this.api.interceptors.request.use((param: InternalAxiosRequestConfig) => {
             // jwt
-            param.headers['Authorization'] = "Bearer " + userStore.getState().current?.authToken.token;
+            param.headers['Authorization'] = "Bearer " + loginInfoStore.getState().current?.authToken.token;
             return param
         });
 

@@ -8,7 +8,7 @@ type AccountState = {
     logout: () => void;
 };
 
-export const userStore = create(
+export const loginInfoStore = create(
     persist<AccountState>(
         (set, _) => ({
             current: null,

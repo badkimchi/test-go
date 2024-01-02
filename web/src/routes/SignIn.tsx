@@ -1,6 +1,6 @@
 import React from 'react';
 import {AppLayout} from '../components/layouts/AppLayout';
-import {userStore} from "../lib/stores/userStore.ts";
+import {loginInfoStore} from "../lib/stores/loginInfoStore.ts";
 import {useNavigate} from "react-router-dom";
 import APIAuth from "../lib/api/APIAuth.tsx";
 import {LoginInfo} from "../lib/models/loginInfo.ts";
@@ -8,7 +8,7 @@ import APIAccount from "../lib/api/APIAccount.tsx";
 
 export const SignIn: React.FC = () => {
     const navigate = useNavigate();
-    const setUser = userStore(state => state.setUser);
+    const setUser = loginInfoStore(state => state.setUser);
     const signIn = () => {
         APIAuth.login()
             .then(resp => {

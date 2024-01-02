@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import {AppLayout} from '../components/layouts/AppLayout';
-import {userStore} from "../lib/stores/userStore.ts";
+import {loginInfoStore} from "../lib/stores/loginInfoStore.ts";
 import APIAccount from "../lib/api/APIAccount.tsx";
 
 export const Home: React.FC = () => {
-    const logout = userStore(state => state.logout);
+    const logout = loginInfoStore(state => state.logout);
     const signOut = () => {
         logout();
     }
