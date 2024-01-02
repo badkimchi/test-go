@@ -49,8 +49,8 @@ func (s *AuthService) refreshTokenExpireTime() time.Time {
 func (s *AuthService) getToken(accountID string, level int) Token {
 	authToken, expire := s.authToken(accountID, level)
 	refToken, refExpire := s.getRefreshToken(accountID, level)
-	rToken := RefreshToken{RefreshToken: refToken, Expiration: refExpire}
-	return Token{AuthToken: authToken, Expiration: expire, RefreshToken: rToken}
+	rToken := RefreshToken{Token: refToken, Expiration: refExpire}
+	return Token{Token: authToken, Expiration: expire, RefreshToken: rToken}
 }
 
 // Account id is embedded in

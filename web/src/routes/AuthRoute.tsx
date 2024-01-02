@@ -10,6 +10,10 @@ export const AuthRoute: React.FC<IProps> = ({ children }) => {
   const storage = JSON.parse(localStorage.getItem('user-storage')!!);
   const current = userStore((state) => state.current);
 
+  console.log(current)
+  console.log(current)
+  console.log(storage?.state?.current)
+  console.log(storage?.state?.current)
   if (current || storage?.state?.current) {
     return <>{children}</>;
   }

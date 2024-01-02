@@ -85,10 +85,10 @@ func (c *Controller) RefreshWithRefreshToken(w http.ResponseWriter, r *http.Requ
 		return
 	}
 
-	_, refreshToken, refreshTokenExpiration := c.serv.exchangeRefreshToken(req.RefreshToken)
+	_, refreshToken, refreshTokenExpiration := c.serv.exchangeRefreshToken(req.Token)
 	rToken := RefreshToken{
-		RefreshToken: refreshToken,
-		Expiration:   refreshTokenExpiration,
+		Token:      refreshToken,
+		Expiration: refreshTokenExpiration,
 	}
 	resp.Data(w, r, rToken)
 }
