@@ -5,9 +5,7 @@ import APIDevice from "../lib/api/APIDevice.tsx";
 export const Home: React.FC = () => {
     const [data, setData] = useState<string>('none');
     useEffect(() => {
-        APIDevice.test()
-            .then(setData)
-            .catch();
+        console.log('here')
     }, [])
 
     return (
