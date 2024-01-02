@@ -3,6 +3,8 @@ import {AppLayout} from '../components/layouts/AppLayout';
 import {userStore} from "../lib/stores/userStore.ts";
 import {useNavigate} from "react-router-dom";
 import APIAuth from "../lib/api/APIAuth.tsx";
+import {Account} from "../lib/models/account.ts";
+import APIAccount from "../lib/api/APIAccount.tsx";
 
 export const SignIn: React.FC = () => {
     const navigate = useNavigate();
@@ -11,21 +13,22 @@ export const SignIn: React.FC = () => {
         APIAuth.login()
             .then(resp => console.log(resp))
             .catch(err => console.error(err));
-
-        setUser({
-            id: '1',
-            username: 'aloha',
-            email: 'abcd',
-            image: 'abcd',
-            authToken: 'abcd',
-        });
-        navigate('/signin');
+        setUser(new Account());
+        navigate('/');
     }
+
 
     return (
         <AppLayout>
             <>
                 <button onClick={signIn}>Login</button>
+                <button onClick={() => {
+                    APIAccount.getAccount()
+                        .then((resp) => {
+                            console.log(resp);
+                        })
+                        .catch(err => console.error(err));
+                }}>Test</button>
             </>
         </AppLayout>
     );
