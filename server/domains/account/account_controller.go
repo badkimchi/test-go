@@ -14,8 +14,8 @@ type AccountController struct {
 
 func NewAccountController(
 	serv IAccountService,
-) *AccountController {
-	return &AccountController{
+) AccountController {
+	return AccountController{
 		serv: serv,
 	}
 }

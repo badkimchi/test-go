@@ -1,6 +1,7 @@
 import {APIBase} from './base/APIBase.tsx';
 import {APIConfig} from './base/conf.tsx';
 import {AxiosRequestConfig} from "axios";
+import {Token} from "../models/token.ts";
 
 const publicApiPath = {...APIConfig}
 publicApiPath.baseURL = publicApiPath.baseURL.substring(0, publicApiPath.baseURL.length - "api/".length)
@@ -11,8 +12,8 @@ export class APIAuth extends APIBase {
         super(base);
     }
 
-    public login(): Promise<string> {
-        return this.post<string>('/auth/login', {
+    public login(): Promise<Token> {
+        return this.post<Token>('/auth/login', {
             userID: 'abc', password: 'abcd'
         })
             .then((response) => {

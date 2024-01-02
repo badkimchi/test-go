@@ -9,12 +9,12 @@ import (
 	"strings"
 )
 
-func Authenticator(level int) func(next http.Handler) http.Handler {
+func Authenticator(requiredLevel int) func(next http.Handler) http.Handler {
 	return func(next http.Handler) http.Handler {
 		return http.HandlerFunc(
 			func(w http.ResponseWriter, r *http.Request) {
 				if strings.ToUpper(r.Method) != "OPTIONS" {
-					err, statusCode := authenticate(r, level)
+					err, statusCode := authenticate(r, requiredLevel)
 					if statusCode == 401 {
 						resp.InvalidAuth(w, r, err)
 						return
@@ -30,7 +30,7 @@ func Authenticator(level int) func(next http.Handler) http.Handler {
 	}
 }
 
-func authenticate(r *http.Request, level int) (error, int) {
+func authenticate(r *http.Request, requiredLevel int) (error, int) {
 	token, _, err := jwtauth.FromContext(r.Context())
 	if err != nil {
 		return err, 401
@@ -45,7 +45,7 @@ func authenticate(r *http.Request, level int) (error, int) {
 		return errors.New("not a valid auth token"), 401
 	}
 	userLevel := claims["level"].(int)
-	if !hasPermission(userLevel, level) {
+	if !hasPermission(userLevel, requiredLevel) {
 		msg := fmt.Sprintf(
 			"the account level %d is not allowed to use the api end point: %s: %s",
 			userLevel, r.URL.Path, r.Method,

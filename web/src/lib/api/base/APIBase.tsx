@@ -54,6 +54,7 @@ export class APIBase {
     }
 
     public get<T, R = BaseResponse<T>>(url: string, config?: AxiosRequestConfig): Promise<R> {
+        console.log(config);
         return this.api.get(url, config);
     }
 

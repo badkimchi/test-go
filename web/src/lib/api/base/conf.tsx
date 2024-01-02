@@ -9,7 +9,7 @@ export const APIConfig = {
     baseURL: url + "/api/",
     contentType: "application/json",
     headers: {
-        "Authorization": "Bearer " + userStore.getState().current,
+        "Authorization": "Bearer " + userStore.getState().current?.authToken,
         "Accept": "application/json",
         "Accept-Language": "ko-KR,ko;q=0.9,en-US;q=0.8,en;q=0.7",
         "Pragma": "no-cache",

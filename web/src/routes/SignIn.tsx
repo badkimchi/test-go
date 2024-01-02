@@ -11,10 +11,14 @@ export const SignIn: React.FC = () => {
     const setUser = userStore(state => state.setUser);
     const signIn = () => {
         APIAuth.login()
-            .then(resp => console.log(resp))
+            .then(resp => {
+                const user = new Account();
+                user.authToken = resp;
+                setUser(user);
+                console.log(user);
+                navigate('/');
+            })
             .catch(err => console.error(err));
-        setUser(new Account());
-        navigate('/');
     }
 
 

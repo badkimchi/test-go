@@ -17,8 +17,8 @@ type Controller struct {
 
 func NewAuthController(
 	tokenAuth *jwtauth.JWTAuth, hAuth IAuthService, accServ account.IAccountService,
-) *Controller {
-	return &Controller{
+) Controller {
+	return Controller{
 		tokenAuth: tokenAuth,
 		serv:      hAuth,
 		accServ:   accServ,

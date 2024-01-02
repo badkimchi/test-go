@@ -32,15 +32,16 @@ func controllers(jwtAuth *jwtauth.JWTAuth, queries *db.Queries) (reqControllers,
 // wire.go:
 
 type reqControllers struct {
-	AuthC *auth.Controller
-	AccC  *account.AccountController
+	AuthC auth.Controller
+	AccC  account.AccountController
 }
 
 func newReqControllers(
-	authC *auth.Controller,
-	accC *account.AccountController,
+	authC auth.Controller,
+	accC account.AccountController,
 ) reqControllers {
 	return reqControllers{
 		AuthC: authC,
+		AccC:  accC,
 	}
 }
