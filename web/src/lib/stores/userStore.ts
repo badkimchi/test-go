@@ -1,22 +1,22 @@
-import create from 'zustand';
-import { persist } from 'zustand/middleware';
-import { Account } from '../models/account';
+import {create} from 'zustand';
+import {persist} from 'zustand/middleware';
+import {Account} from '../models/account';
 
 type AccountState = {
-  current: Account | null;
-  setUser: (account: Account) => void;
-  logout: () => void;
+    current: Account | null;
+    setUser: (account: Account) => void;
+    logout: () => void;
 };
 
 export const userStore = create(
-  persist<AccountState>(
-    (set, _) => ({
-      current: null,
-      setUser: (account) => set({ current: account }),
-      logout: () => set({ current: null }),
-    }),
-    {
-      name: 'account-storage',
-    }
-  )
+    persist<AccountState>(
+        (set, _) => ({
+            current: null,
+            setUser: (account) => set({current: account}),
+            logout: () => set({current: null}),
+        }),
+        {
+            name: 'account-storage',
+        }
+    )
 );
