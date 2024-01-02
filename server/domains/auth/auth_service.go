@@ -10,11 +10,9 @@ type IAuthService interface {
 	setAuthTokenDuration(duration time.Duration)
 	authTokenExpireTime() time.Time
 	refreshTokenExpireTime() time.Time
-	getTokensForAccountWithPrivilegeTitle(accountID string, privilegeTitle string) (
-		bool, string, string, string, string, error,
-	)
-	getAuthToken(id string, privilegeTitle string) (string, string)
-	getRefreshToken(id string, privilegeTitle string) (string, string)
+	getToken(accountID string, level int) Token
+	//getAuthToken(id string, level string) (string, string)
+	//getRefreshToken(id string, level string) (string, string)
 	exchangeRefreshToken(tokenString string) (bool, string, string)
 }
 
@@ -48,26 +46,25 @@ func (s *AuthService) refreshTokenExpireTime() time.Time {
 	return time.Now().Add(s.refreshTokenDuration)
 }
 
-func (s *AuthService) getTokensForAccountWithPrivilegeTitle(accountID string, privilegeTitle string) (
-	bool, string, string, string, string, error,
-) {
-	authToken, authExpireTime := s.getAuthToken(accountID, privilegeTitle)
-	refToken, refTokenExpireTime := s.getRefreshToken(accountID, privilegeTitle)
-	return true, authToken, authExpireTime, refToken, refTokenExpireTime, nil
+func (s *AuthService) getToken(accountID string, level int) Token {
+	authToken, expire := s.authToken(accountID, level)
+	refToken, refExpire := s.getRefreshToken(accountID, level)
+	rToken := RefreshToken{RefreshToken: refToken, Expiration: refExpire}
+	return Token{AuthToken: authToken, Expiration: expire, RefreshToken: rToken}
 }
 
 // Account id is embedded in
-func (s *AuthService) getAuthToken(id string, privilegeTitle string) (string, string) {
+func (s *AuthService) authToken(id string, level int) (string, string) {
 	aTokenClaims := map[string]interface{}{
-		"id": id, "token_type": "auth", "privilege_title": privilegeTitle,
+		"id": id, "token_type": "auth", "level": level,
 	}
 	jwtauth.SetExpiry(aTokenClaims, s.authTokenExpireTime())
 	_, authToken, _ := s.tokenAuth.Encode(aTokenClaims)
 	return authToken, s.authTokenExpireTime().String()
 }
 
-func (s *AuthService) getRefreshToken(id string, privilegeTitle string) (string, string) {
-	rTokenClaims := map[string]interface{}{"id": id, "token_type": "refresh", "privilege_title": privilegeTitle}
+func (s *AuthService) getRefreshToken(id string, level int) (string, string) {
+	rTokenClaims := map[string]interface{}{"id": id, "token_type": "refresh", "level": level}
 	jwtauth.SetExpiry(rTokenClaims, s.refreshTokenExpireTime())
 	_, refreshToken, _ := s.tokenAuth.Encode(rTokenClaims)
 	return refreshToken, s.refreshTokenExpireTime().String()
@@ -78,15 +75,11 @@ func (s *AuthService) exchangeRefreshToken(tokenString string) (bool, string, st
 	if err != nil {
 		return false, err.Error(), ""
 	}
-
 	claims := token.PrivateClaims()
-
 	if claims["token_type"] != "refresh" {
 		return false, "This is not s refresh token", ""
 	}
-
-	rToken, expirationTime := s.getRefreshToken(claims["id"].(string), claims["privilege_title"].(string))
-
+	rToken, expirationTime := s.getRefreshToken(claims["id"].(string), claims["level"].(int))
 	return true, rToken, expirationTime
 }
 
@@ -168,5 +161,5 @@ func (s *AuthService) exchangeRefreshToken(tokenString string) (bool, string, st
 //	if err != nil {
 //		return false, "", "", "", "", err
 //	}
-//	return s.getTokensForAccountWithPrivilegeTitle(accountID, acc.PrivilegeTitle)
+//	return s.getToken(accountID, acc.level)
 //}

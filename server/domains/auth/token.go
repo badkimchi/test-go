@@ -1,17 +1,14 @@
 package auth
 
-type Token struct {
-	AuthToken    string       `json:"token"`
-	Type         string       `json:"type"`
-	Expiration   string       `json:"expiration"`
-	RefreshToken RefreshToken `json:"refreshToken"`
+type LoginRequest struct {
+	UserID   string `json:"userID"`
+	Password string `json:"password"`
 }
 
-type TokenWithPrivilegeTitleExposed struct {
-	Token
-	// Only purpose is to let the frontend code know the privilege.
-	// Not a security vulnerability since the info is also embedded in the token itself.
-	PrivilegeTitle string
+type Token struct {
+	AuthToken    string       `json:"token"`
+	Expiration   string       `json:"expiration"` // expiration is already in the token but useful for frontend
+	RefreshToken RefreshToken `json:"refreshToken"`
 }
 
 type RefreshToken struct {

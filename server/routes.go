@@ -61,17 +61,15 @@ func defineStaticRoutes(mux *chi.Mux) {
 }
 
 func defineAPIRoutes(cont reqControllers, mux *chi.Mux, token *jwtauth.JWTAuth) {
-	mux.Route("/public", func(public chi.Router) {
-		public.Use(middleware.Timeout(time.Second * 4))
-		public.Get("/test", cont.AuthC.TestGet)
-	})
+	//public path
+	mux.Post("/auth/login", cont.AuthC.Login)
+
 	mux.Route("/api", func(api chi.Router) {
 		api.Use(middleware.Timeout(time.Second * 10))
 		api.Use(jwtauth.Verifier(token))
 		api.Use(middleware.Authenticator(1))
 
 		api.Get("/accounts/{id}", cont.AccC.GetAccount)
-
 	})
 }
 
