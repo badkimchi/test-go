@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import {AppLayout} from '../components/layouts/AppLayout';
 import {loginInfoStore} from "../lib/stores/loginInfoStore.ts";
 import APIAccount from "../lib/api/APIAccount.tsx";
@@ -8,7 +8,6 @@ export const Home: React.FC = () => {
     const signOut = () => {
         logout();
     }
-    const [data, setData] = useState<string>('abcd');
 
     useEffect(() => {
         APIAccount.getAccount()
@@ -23,8 +22,6 @@ export const Home: React.FC = () => {
             <>
                 Home Page
                 <br/>
-                <br/>
-                {data}
                 <br/>
                 <br/>
                 <button onClick={signOut}> Sign Out </button>
