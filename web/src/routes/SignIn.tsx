@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {APIAuth} from "../lib/api/APIAuth.tsx";
 import {LoginInfo} from "../lib/models/loginInfo.ts";
 import {APIAccount} from "../lib/api/APIAccount.tsx";
+import {GoogleLogin} from "@react-oauth/google";
 
 export const SignIn: React.FC = () => {
     const navigate = useNavigate();
@@ -20,10 +21,17 @@ export const SignIn: React.FC = () => {
             .catch(err => console.error(err));
     }
 
-
     return (
         <AppLayout>
             <>
+                <GoogleLogin
+                    onSuccess={credentialResponse => {
+                        console.log(credentialResponse);
+                    }}
+                    onError={() => {
+                        console.log('Login Failed');
+                    }}
+                />
                 <button onClick={signIn}>Login</button>
                 <button onClick={() => {
                     APIAccount.getAccount()
@@ -31,7 +39,8 @@ export const SignIn: React.FC = () => {
                             console.log(resp);
                         })
                         .catch(err => console.error(err));
-                }}>Test</button>
+                }}>Test
+                </button>
             </>
         </AppLayout>
     );

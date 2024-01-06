@@ -5,9 +5,13 @@ import (
 	"app/util/resp"
 	"encoding/json"
 	"errors"
-	"github.com/go-chi/jwtauth"
 	"net/http"
+
+	"github.com/go-chi/jwtauth"
 )
+
+type IController interface {
+}
 
 type Controller struct {
 	tokenAuth *jwtauth.JWTAuth
