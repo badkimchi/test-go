@@ -22,6 +22,12 @@ export const SignIn: React.FC = () => {
             })
             .catch(err => console.error(err));
     }
+    // const code = "ya29.a0AfB_byCsk3YvQFSPh6Sz71-m0SHWUrLNUev2lzkac1qw02d0S-PRdRGw6QbijM7jdeSn-LrBQXrPa20mQHCBnX9sa6pGJUUiC5zmD8cjT65J0OQVV5Wp66zl1d36McnGN8eQMTmGRF75JZBHUjc57_O9pppaP3hINFCQaCgYKAfASARISFQHGX2Mia1b39IO-5KJy-2kVfry1dg0171"
+    // axios
+    //     .get('https://www.googleapis.com/oauth2/v3/userinfo', {
+    //         headers: {Authorization: `Bearer ${code}`},
+    //     })
+    //     .then(res => console.log(res.data));
 
     const googleLogin = useGoogleLogin({
         onSuccess: async tokenResponse => {
