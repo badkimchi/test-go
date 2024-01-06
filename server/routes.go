@@ -55,6 +55,7 @@ func defineStaticRoutes(mux *chi.Mux) {
 func defineAPIRoutes(cont reqControllers, mux *chi.Mux, token *jwtauth.JWTAuth) {
 	//public path
 	mux.Post("/auth/login", cont.AuthC.Login)
+	mux.Get("/auth/oauth", cont.AuthC.OAuthLogin)
 
 	mux.Route("/api", func(api chi.Router) {
 		api.Use(middleware.Timeout(time.Second * 10))

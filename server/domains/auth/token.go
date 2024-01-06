@@ -5,6 +5,10 @@ type LoginRequest struct {
 	Password string `json:"password"`
 }
 
+type OAuthRequest struct {
+	Token string `json:"token"`
+}
+
 type Token struct {
 	Token        string       `json:"token"`
 	Expiration   string       `json:"expiration"` // expiration is already in the token but useful for frontend
