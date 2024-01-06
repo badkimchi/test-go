@@ -6,10 +6,9 @@ import (
 	"context"
 	"encoding/json"
 	"errors"
-	"net/http"
-
 	"github.com/go-chi/jwtauth"
 	"golang.org/x/oauth2"
+	"net/http"
 )
 
 type IController interface {
@@ -39,37 +38,93 @@ func NewAuthController(
 
 func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
-	var req LoginRequest
-	err := decoder.Decode(&req)
+	var tokenReq OAuthRequest
+	err := decoder.Decode(&tokenReq)
 	if err != nil {
 		resp.Bad(w, r, errors.New("EOF: unable to parse token request"+err.Error()))
 		return
 	}
-	if req.UserID == "" || req.Password == "" {
-		resp.Bad(w, r, errors.New("name and password must be passed in"))
+	if tokenReq.Token == "" {
+		resp.Bad(w, r, errors.New("token must be passed in"))
+		return
+	}
+	//googleUrl := "https://www.googleapis.com/oauth2/v3/userinfo"
+	//googleUrl = ""
+	var Endpoint = oauth2.Endpoint{
+		AuthURL:       "https://accounts.google.com/o/oauth2/auth",
+		TokenURL:      "https://oauth2.googleapis.com/token",
+		DeviceAuthURL: "https://oauth2.googleapis.com/device/code",
+		AuthStyle:     oauth2.AuthStyleInParams,
+	}
+	conf := oauth2.Config{
+		ClientID:     "773325553700-oluqkagk36js85vlqh55dselui6dvpar.apps.googleusercontent.com",
+		ClientSecret: "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",
+		Endpoint:     Endpoint,
+		RedirectURL:  "postmessage",
+		Scopes:       []string{"https://www.googleapis.com/auth/drive.metadata.readonly"},
+	}
+	token, err := conf.Exchange(context.Background(), tokenReq.Token)
+	if err != nil {
+		resp.Data(w, r, token)
 		return
 	}
 
-	//authenticated, err := c.serv.AuthenticateByAccountIDAndPWD(req.AccountID, req.PWD)
+	//cID := "773325553700-oluqkagk36js85vlqh55dselui6dvpar.apps.googleusercontent.com"
+	//cS := "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"
+	//redirectUrl := "postmessage"
+	//grantType := "authorization_code"
+	//body := fmt.Sprintf("{'code':%s, 'client_id':%s, 'client_secret': %s, 'redirect_uri': %s, 'grant_type': %s}",
+	//	tokenReq.Token, cID, cS, redirectUrl, grantType)
+	//req, err := http.NewRequest("GET", "https://oauth2.googleapis.com/token", bytes.NewBuffer([]byte(body)))
+	//req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", tokenReq.Token))
 	//if err != nil {
 	//	resp.Bad(w, r, err)
 	//	return
 	//}
 	//
-	//if authenticated == false {
-	//	resp.Bad(w, r, errors.New("wrong password or account ID, please try again"))
-	//	return
-	//}
-	//account, err := c.accServ.GetAccountByAccountID(req.AccountID)
+	////req.Header.Set("Content-type", "application/json; charset=utf-8")
+	////req.Header.Set("Accept", "text/plain")
+	//
+	//client := &http.Client{Timeout: time.Millisecond * 1000}
+	//
+	//apiResp, err := client.Do(req)
 	//if err != nil {
 	//	resp.Bad(w, r, err)
 	//	return
 	//}
+	//data, err := io.ReadAll(apiResp.Body)
+	//resp.OK(w, r, string(data))
 
+	//googleUrl := "https://www.googleapis.com/oauth2/v3/userinfo"
+	//req, err := http.NewRequest("GET", googleUrl, bytes.NewBuffer([]byte("{}")))
+	//req.Header.Set("Authorization", fmt.Sprintf("Bearer %s", tokenReq.Token))
+	//if err != nil {
+	//	resp.Bad(w, r, err)
+	//	return
+	//}
+	//
+	////req.Header.Set("Content-type", "application/json; charset=utf-8")
+	////req.Header.Set("Accept", "text/plain")
+	//
+	//client := &http.Client{Timeout: time.Millisecond * 1000}
+	//
+	//apiResp, err := client.Do(req)
+	//if err != nil {
+	//	resp.Bad(w, r, err)
+	//	return
+	//}
+	//
+	//if apiResp.StatusCode == http.StatusOK {
+	//	data, err := io.ReadAll(apiResp.Body)
+	//	if err == nil {
+	//		resp.OK(w, r, string(data))
+	//		return
+	//	}
+	//}
 	// @todo user level
 	level := "0"
-	token := c.serv.getToken(req.UserID, level)
-	resp.Data(w, r, token)
+	t := c.serv.getToken("sang", level)
+	resp.Data(w, r, t)
 }
 
 func (c *Controller) OAuthLogin(w http.ResponseWriter, r *http.Request) {

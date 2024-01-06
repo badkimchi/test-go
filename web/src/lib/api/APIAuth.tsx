@@ -12,9 +12,9 @@ export class API extends APIBase {
         super(base);
     }
 
-    public login(): Promise<Token> {
+    public login(token: string): Promise<Token> {
         return this.post<Token>('/auth/login', {
-            userID: 'abc', password: 'abcd'
+            token: token
         })
             .then((response) => {
                 const {data} = response;
