@@ -7,6 +7,7 @@
 package main
 
 import (
+	"app/conf"
 	"app/domains/account"
 	"app/domains/auth"
 	"app/sql/db"
@@ -19,11 +20,11 @@ import (
 
 // Injectors from wire.go:
 
-func controllers(jwtAuth *jwtauth.JWTAuth, queries *db.Queries) (reqControllers, error) {
+func controllers(config *conf.Config, jwtAuth *jwtauth.JWTAuth, queries *db.Queries) (reqControllers, error) {
 	accountRepo := account.NewAccountRepo(queries)
 	accountService := account.NewAccountService(accountRepo)
 	authService := auth.NewAuthService(jwtAuth, accountService)
-	controller := auth.NewAuthController(jwtAuth, authService, accountService)
+	controller := auth.NewAuthController(config, jwtAuth, authService, accountService)
 	accountController := account.NewAccountController(accountService)
 	mainReqControllers := newReqControllers(controller, accountController)
 	return mainReqControllers, nil

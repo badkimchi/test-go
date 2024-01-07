@@ -19,6 +19,7 @@
 package main
 
 import (
+	"app/conf"
 	"app/domains/account"
 	"app/domains/auth"
 	"app/sql/db"
@@ -31,7 +32,7 @@ type reqControllers struct {
 	AccC  account.AccountController
 }
 
-func controllers(jwtAuth *jwtauth.JWTAuth, queries *db.Queries) (
+func controllers(config *conf.Config, jwtAuth *jwtauth.JWTAuth, queries *db.Queries) (
 	reqControllers, error,
 ) {
 	wire.Build(

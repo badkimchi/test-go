@@ -1,6 +1,7 @@
 package auth
 
 import (
+	"app/conf"
 	"app/domains/account"
 	"app/util/resp"
 	"bytes"
@@ -18,15 +19,20 @@ type IController interface {
 }
 
 type Controller struct {
+	config    *conf.Config
 	tokenAuth *jwtauth.JWTAuth
 	serv      IAuthService
 	accServ   account.IAccountService
 }
 
 func NewAuthController(
-	tokenAuth *jwtauth.JWTAuth, hAuth IAuthService, accServ account.IAccountService,
+	config *conf.Config,
+	tokenAuth *jwtauth.JWTAuth,
+	hAuth IAuthService,
+	accServ account.IAccountService,
 ) Controller {
 	return Controller{
+		config:    config,
 		tokenAuth: tokenAuth,
 		serv:      hAuth,
 		accServ:   accServ,
@@ -51,14 +57,14 @@ func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 		DeviceAuthURL: "https://oauth2.googleapis.com/device/code",
 		AuthStyle:     oauth2.AuthStyleInParams,
 	}
-	conf := oauth2.Config{
-		ClientID:     "773325553700-oluqkagk36js85vlqh55dselui6dvpar.apps.googleusercontent.com",
-		ClientSecret: "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",
+	oauth := oauth2.Config{
+		ClientID:     c.config.GoogleClientID,
+		ClientSecret: c.config.GoogleClientSecret,
 		Endpoint:     Endpoint,
 		RedirectURL:  "postmessage",
 		Scopes:       []string{"https://www.googleapis.com/auth/drive.metadata.readonly"},
 	}
-	token, err := conf.Exchange(context.Background(), tokenReq.Token)
+	token, err := oauth.Exchange(context.Background(), tokenReq.Token)
 	if err != nil {
 		resp.Data(w, r, token)
 		return
@@ -89,16 +95,6 @@ func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 	resp.Data(w, r, t)
 }
 
-// RefreshWithRefreshToken
-// @Summary Refresh tokens with refresh token
-// @Tags Auth
-// @Description Refresh tokens with refresh token
-// @Accept  json
-// @Produce  json
-// @Param RefreshTokenRequest body RefreshTokenRequest true "RefreshTokenRequest"
-// @Success 200
-// @Failure 400
-// @Router /auth/refresh [post]
 func (c *Controller) RefreshWithRefreshToken(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var req RefreshToken

@@ -1,4 +1,4 @@
-package main
+package conf
 
 import (
 	"app/util"
@@ -29,6 +29,8 @@ type Config struct {
 	DbHost                   string
 	DbName                   string
 	DbPort                   string
+	GoogleClientID           string
+	GoogleClientSecret       string
 }
 
 func NewConfig() (*Config, error) {
@@ -79,12 +81,6 @@ func NewConfig() (*Config, error) {
 		errs = append(errs, err)
 	}
 
-	DbUser := goDotEnvVariable("DB_USER")
-	DbPassword := goDotEnvVariable("DB_PASSWORD")
-	DbHost := goDotEnvVariable("DB_HOST")
-	DbName := goDotEnvVariable("DB_NAME")
-	DbPort := goDotEnvVariable("DB_PORT")
-
 	if len(errs) > 0 {
 		return nil, errors.Join(errs...)
 	}
@@ -99,11 +95,13 @@ func NewConfig() (*Config, error) {
 		OtelEnabled:              otelEnabled,
 		OtelExporterOTLPEndpoint: otelExporterOTLPEndpoint,
 		MaxAllowedRequestBytes:   maxAllowedRequestBytes,
-		DbUser:                   DbUser,
-		DbPassword:               DbPassword,
-		DbHost:                   DbHost,
-		DbName:                   DbName,
-		DbPort:                   DbPort,
+		DbUser:                   goDotEnvVariable("DB_USER"),
+		DbPassword:               goDotEnvVariable("DB_PASSWORD"),
+		DbHost:                   goDotEnvVariable("DB_HOST"),
+		DbName:                   goDotEnvVariable("DB_NAME"),
+		DbPort:                   goDotEnvVariable("DB_PORT"),
+		GoogleClientID:           goDotEnvVariable("GOOGLE_CLIENT_ID"),
+		GoogleClientSecret:       goDotEnvVariable("GOOGLE_CLIENT_SECRET"),
 	}, nil
 }
 

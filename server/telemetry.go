@@ -1,6 +1,7 @@
 package main
 
 import (
+	"app/conf"
 	"context"
 	"errors"
 
@@ -15,7 +16,7 @@ import (
 
 // SetupOTelSDK bootstraps the OpenTelemetry pipeline.
 // If it does not return an error, make sure to call shutdown for proper cleanup.
-func SetupOTelSDK(ctx context.Context, cfg *Config) (shutdown func(context.Context) error, err error) {
+func SetupOTelSDK(ctx context.Context, cfg *conf.Config) (shutdown func(context.Context) error, err error) {
 	var shutdownFuncs []func(context.Context) error
 
 	// shutdown calls cleanup functions registered via shutdownFuncs.
@@ -77,7 +78,7 @@ func newPropagator() propagation.TextMapPropagator {
 	)
 }
 
-func newTraceProvider(res *resource.Resource, cfg *Config) (*trace.TracerProvider, error) {
+func newTraceProvider(res *resource.Resource, cfg *conf.Config) (*trace.TracerProvider, error) {
 	var exporter trace.SpanExporter
 	var err error
 	if cfg.OtelExporterOTLPEndpoint != nil {

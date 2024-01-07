@@ -1,6 +1,7 @@
 package main
 
 import (
+	"app/conf"
 	"app/sql/db"
 	"app/util"
 	"context"
@@ -20,7 +21,7 @@ import (
 )
 
 func main() {
-	cfg, err := NewConfig()
+	cfg, err := conf.NewConfig()
 	if err != nil {
 		log.Fatal(err)
 	}

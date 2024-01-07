@@ -1,6 +1,7 @@
 package main
 
 import (
+	"app/conf"
 	"app/middleware"
 	"app/sql/db"
 	"github.com/dillonstreator/opentelemetry-go-contrib/instrumentation/net/http/otelhttp"
@@ -15,9 +16,9 @@ import (
 	"time"
 )
 
-func defineRoutes(mux *chi.Mux, cfg *Config, logger *slog.Logger, token *jwtauth.JWTAuth, queries *db.Queries) {
+func defineRoutes(mux *chi.Mux, cfg *conf.Config, logger *slog.Logger, token *jwtauth.JWTAuth, queries *db.Queries) {
 	setCommonMiddleware(mux, logger)
-	cont, err := controllers(token, queries)
+	cont, err := controllers(cfg, token, queries)
 	if err != nil {
 		panic(err)
 	}
