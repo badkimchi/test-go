@@ -1,8 +1,14 @@
 package auth
 
-type LoginRequest struct {
-	UserID   string `json:"userID"`
-	Password string `json:"password"`
+type UserInfo struct {
+	Sub           string `json:"sub"`
+	Name          string `json:"name"`
+	GivenName     string `json:"given_name"`
+	FamilyName    string `json:"family_name"`
+	EmailVerified bool   `json:"email_verified"`
+	Picture       string `json:"picture"`
+	Email         string `json:"email"`
+	Locale        string `json:"locale"`
 }
 
 type OAuthRequest struct {
