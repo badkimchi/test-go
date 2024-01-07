@@ -6,7 +6,6 @@ import {APIAuth} from "../lib/api/APIAuth.tsx";
 import {LoginInfo} from "../lib/models/loginInfo.ts";
 import {APIAccount} from "../lib/api/APIAccount.tsx";
 import {useGoogleLogin} from "@react-oauth/google";
-import {Button} from "@chakra-ui/react";
 
 export const SignIn: React.FC = () => {
     const navigate = useNavigate();
@@ -35,9 +34,9 @@ export const SignIn: React.FC = () => {
     return (
         <AppLayout>
             <>
-                <Button onClick={() => {
+                <button onClick={() => {
                     googleLogin()
-                }}> Google Login </Button>
+                }}> Google Login </button>
                 <button onClick={() => {
                     APIAccount.getAccount()
                         .then((resp) => {

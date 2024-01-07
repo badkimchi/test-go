@@ -9,7 +9,7 @@ const qClient = new QueryClient();
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
     <React.StrictMode>
-        <GoogleOAuthProvider clientId="773325553700-oluqkagk36js85vlqh55dselui6dvpar.apps.googleusercontent.com">
+        <GoogleOAuthProvider clientId={import.meta.env.VITE_CLIENT_ID}>
             <QueryClientProvider client={qClient}>
                 <App/>
             </QueryClientProvider>
