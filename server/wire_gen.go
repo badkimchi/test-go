@@ -9,7 +9,6 @@ package main
 import (
 	"app/conf"
 	"app/domains/account"
-	"app/domains/auth"
 	"app/sql/db"
 	"github.com/go-chi/jwtauth"
 )
@@ -23,22 +22,22 @@ import (
 func controllers(config *conf.Config, jwtAuth *jwtauth.JWTAuth, queries *db.Queries) (reqControllers, error) {
 	accountRepo := account.NewAccountRepo(queries)
 	accountService := account.NewAccountService(accountRepo)
-	authService := auth.NewAuthService(jwtAuth, accountService)
-	controller := auth.NewAuthController(config, jwtAuth, authService, accountService)
-	accountController := account.NewAccountController(accountService)
-	mainReqControllers := newReqControllers(controller, accountController)
+	authService := account.NewAuthService(jwtAuth, accountService)
+	authController := account.NewAuthController(config, jwtAuth, authService, accountService)
+	accountController := account.NewAccountController(accountService, authService)
+	mainReqControllers := newReqControllers(authController, accountController)
 	return mainReqControllers, nil
 }
 
 // wire.go:
 
 type reqControllers struct {
-	AuthC auth.Controller
+	AuthC account.AuthController
 	AccC  account.AccountController
 }
 
 func newReqControllers(
-	authC auth.Controller,
+	authC account.AuthController,
 	accC account.AccountController,
 ) reqControllers {
 	return reqControllers{

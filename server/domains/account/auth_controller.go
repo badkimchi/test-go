@@ -1,8 +1,7 @@
-package auth
+package account
 
 import (
 	"app/conf"
-	"app/domains/account"
 	"app/sql/db"
 	"app/util/resp"
 	"bytes"
@@ -20,20 +19,20 @@ import (
 type IController interface {
 }
 
-type Controller struct {
+type AuthController struct {
 	config    *conf.Config
 	tokenAuth *jwtauth.JWTAuth
 	serv      IAuthService
-	accServ   account.IAccountService
+	accServ   IAccountService
 }
 
 func NewAuthController(
 	config *conf.Config,
 	tokenAuth *jwtauth.JWTAuth,
 	hAuth IAuthService,
-	accServ account.IAccountService,
-) Controller {
-	return Controller{
+	accServ IAccountService,
+) AuthController {
+	return AuthController{
 		config:    config,
 		tokenAuth: tokenAuth,
 		serv:      hAuth,
@@ -41,7 +40,7 @@ func NewAuthController(
 	}
 }
 
-func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
+func (c *AuthController) Login(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var tokenReq OAuthRequest
 	err := decoder.Decode(&tokenReq)
@@ -113,7 +112,7 @@ func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 	resp.Data(w, r, info)
 }
 
-func (c *Controller) RefreshWithRefreshToken(w http.ResponseWriter, r *http.Request) {
+func (c *AuthController) RefreshWithRefreshToken(w http.ResponseWriter, r *http.Request) {
 	decoder := json.NewDecoder(r.Body)
 	var req RefreshToken
 	err := decoder.Decode(&req)

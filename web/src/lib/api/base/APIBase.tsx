@@ -21,7 +21,6 @@ export class APIBase {
         //Middleware run before request is sent.
         this.api.interceptors.request.use((param: InternalAxiosRequestConfig) => {
             // jwt
-            console.log(loginInfoStore.getState().current);
             param.headers['Authorization'] = "Bearer " + loginInfoStore.getState().current?.jwt.token;
             return param
         });
@@ -43,7 +42,6 @@ export class APIBase {
                 error.response?.data?.data?.indexOf("token is unauthorized") > -1)) {
             error.response.data = {message: error.response?.data?.data}
             window.location.href = "/signin";
-            // LoginInfo.signOut();
         }
 
         return Promise.reject(error.response?.data?.message);

@@ -1,4 +1,4 @@
-package auth
+package account
 
 type UserInfoDto struct {
 	Sub           string `json:"sub"`
