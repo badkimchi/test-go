@@ -16,7 +16,7 @@ VALUES ($1, $2, $3) RETURNING account_id, name, level, email
 
 type CreateAccountParams struct {
 	Name  string `json:"name"`
-	Level int32  `json:"level"`
+	Level int16  `json:"level"`
 	Email string `json:"email"`
 }
 
@@ -90,7 +90,7 @@ WHERE Account_ID = $1
 type UpdateAccountParams struct {
 	AccountID int64  `json:"account_id"`
 	Name      string `json:"name"`
-	Level     int32  `json:"level"`
+	Level     int16  `json:"level"`
 	Email     string `json:"email"`
 }
 

@@ -9,6 +9,6 @@ import ()
 type Account struct {
 	AccountID int64  `json:"account_id"`
 	Name      string `json:"name"`
-	Level     int32  `json:"level"`
+	Level     int16  `json:"level"`
 	Email     string `json:"email"`
 }
