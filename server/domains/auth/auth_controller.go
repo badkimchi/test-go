@@ -3,6 +3,7 @@ package auth
 import (
 	"app/conf"
 	"app/domains/account"
+	"app/sql/db"
 	"app/util/resp"
 	"bytes"
 	"context"
@@ -12,6 +13,7 @@ import (
 	"github.com/go-chi/jwtauth"
 	"golang.org/x/oauth2"
 	"net/http"
+	"strings"
 	"time"
 )
 
@@ -90,8 +92,24 @@ func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 		resp.Bad(w, r, err)
 		return
 	}
-	level := "0"
-	info.Jwt = c.serv.getJwt(info.Email, level)
+	var acc db.Account
+	acc, err = c.accServ.GetAccountByEmail(info.Email)
+	if err != nil {
+		if !strings.Contains(err.Error(), "no rows") {
+			resp.Bad(w, r, err)
+			return
+		}
+		acc, err = c.accServ.CreateAccount(db.CreateAccountParams{
+			Name:  info.Name,
+			Level: 0,
+			Email: info.Email,
+		})
+		if err != nil {
+			resp.Bad(w, r, err)
+			return
+		}
+	}
+	info.Jwt = c.serv.getJwt(info.Email, int(acc.Level))
 	resp.Data(w, r, info)
 }
 

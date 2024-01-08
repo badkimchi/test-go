@@ -7,33 +7,25 @@ package db
 
 import (
 	"context"
-	"database/sql"
 )
 
 const createAccount = `-- name: CreateAccount :one
-INSERT INTO Account (Name, Password, Level, Email)
-VALUES ($1, $2, $3, $4) RETURNING accountid, name, password, level, email
+INSERT INTO Accounts (Name, Level, Email)
+VALUES ($1, $2, $3) RETURNING accountid, name, level, email
 `
 
 type CreateAccountParams struct {
-	Name     sql.NullString `json:"name"`
-	Password string         `json:"password"`
-	Level    sql.NullInt32  `json:"level"`
-	Email    sql.NullString `json:"email"`
+	Name  string `json:"name"`
+	Level int32  `json:"level"`
+	Email string `json:"email"`
 }
 
 func (q *Queries) CreateAccount(ctx context.Context, arg CreateAccountParams) (Account, error) {
-	row := q.db.QueryRowContext(ctx, createAccount,
-		arg.Name,
-		arg.Password,
-		arg.Level,
-		arg.Email,
-	)
+	row := q.db.QueryRowContext(ctx, createAccount, arg.Name, arg.Level, arg.Email)
 	var i Account
 	err := row.Scan(
 		&i.Accountid,
 		&i.Name,
-		&i.Password,
 		&i.Level,
 		&i.Email,
 	)
@@ -42,7 +34,7 @@ func (q *Queries) CreateAccount(ctx context.Context, arg CreateAccountParams) (A
 
 const deleteAccount = `-- name: DeleteAccount :exec
 DELETE
-FROM Account
+FROM Accounts
 WHERE AccountID = $1
 `
 
@@ -52,8 +44,8 @@ func (q *Queries) DeleteAccount(ctx context.Context, accountid int64) error {
 }
 
 const getAccount = `-- name: GetAccount :one
-SELECT accountid, name, password, level, email
-FROM Account
+SELECT accountid, name, level, email
+FROM Accounts
 WHERE AccountID = $1 LIMIT 1
 `
 
@@ -63,7 +55,24 @@ func (q *Queries) GetAccount(ctx context.Context, accountid int64) (Account, err
 	err := row.Scan(
 		&i.Accountid,
 		&i.Name,
-		&i.Password,
+		&i.Level,
+		&i.Email,
+	)
+	return i, err
+}
+
+const getAccountByEmail = `-- name: GetAccountByEmail :one
+SELECT accountid, name, level, email
+FROM Accounts
+WHERE Email = $1 LIMIT 1
+`
+
+func (q *Queries) GetAccountByEmail(ctx context.Context, email string) (Account, error) {
+	row := q.db.QueryRowContext(ctx, getAccountByEmail, email)
+	var i Account
+	err := row.Scan(
+		&i.Accountid,
+		&i.Name,
 		&i.Level,
 		&i.Email,
 	)
@@ -71,27 +80,24 @@ func (q *Queries) GetAccount(ctx context.Context, accountid int64) (Account, err
 }
 
 const updateAccount = `-- name: UpdateAccount :exec
-UPDATE Account
+UPDATE Accounts
 SET Name     = $2,
-    Password = $3,
-    Level    = $4,
-    Email    = $5
+    Level    = $3,
+    Email    = $4
 WHERE AccountID = $1
 `
 
 type UpdateAccountParams struct {
-	Accountid int64          `json:"accountid"`
-	Name      sql.NullString `json:"name"`
-	Password  string         `json:"password"`
-	Level     sql.NullInt32  `json:"level"`
-	Email     sql.NullString `json:"email"`
+	Accountid int64  `json:"accountid"`
+	Name      string `json:"name"`
+	Level     int32  `json:"level"`
+	Email     string `json:"email"`
 }
 
 func (q *Queries) UpdateAccount(ctx context.Context, arg UpdateAccountParams) error {
 	_, err := q.db.ExecContext(ctx, updateAccount,
 		arg.Accountid,
 		arg.Name,
-		arg.Password,
 		arg.Level,
 		arg.Email,
 	)

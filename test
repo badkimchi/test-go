@@ -1,0 +1,3 @@
+Aloha="abcd"
+Aloha="bbb":$Aloha
+echo $Aloha

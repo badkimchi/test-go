@@ -4,14 +4,11 @@
 
 package db
 
-import (
-	"database/sql"
-)
+import ()
 
 type Account struct {
-	Accountid int64          `json:"accountid"`
-	Name      sql.NullString `json:"name"`
-	Password  string         `json:"password"`
-	Level     sql.NullInt32  `json:"level"`
-	Email     sql.NullString `json:"email"`
+	Accountid int64  `json:"accountid"`
+	Name      string `json:"name"`
+	Level     int32  `json:"level"`
+	Email     string `json:"email"`
 }

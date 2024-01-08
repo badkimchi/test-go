@@ -3,6 +3,7 @@ package auth
 import (
 	"app/domains/account"
 	"github.com/go-chi/jwtauth"
+	"strconv"
 	"time"
 )
 
@@ -10,7 +11,7 @@ type IAuthService interface {
 	setAuthTokenDuration(duration time.Duration)
 	authTokenExpireTime() time.Time
 	refreshTokenExpireTime() time.Time
-	getJwt(accountID string, level string) Jwt
+	getJwt(accountID string, level int) Jwt
 	//getAuthToken(id string, level string) (string, string)
 	//getRefreshToken(id string, level string) (string, string)
 	exchangeRefreshToken(tokenString string) (bool, string, string)
@@ -46,7 +47,7 @@ func (s *AuthService) refreshTokenExpireTime() time.Time {
 	return time.Now().Add(s.refreshTokenDuration)
 }
 
-func (s *AuthService) getJwt(accountID string, level string) Jwt {
+func (s *AuthService) getJwt(accountID string, level int) Jwt {
 	authToken, expire := s.authToken(accountID, level)
 	refToken, refExpire := s.getRefreshToken(accountID, level)
 	rToken := RefreshToken{Token: refToken, Expiration: refExpire}
@@ -54,22 +55,22 @@ func (s *AuthService) getJwt(accountID string, level string) Jwt {
 }
 
 // LoginInfo id is embedded in
-func (s *AuthService) authToken(id string, level string) (string, string) {
+func (s *AuthService) authToken(id string, level int) (string, string) {
 	aTokenClaims := map[string]interface{}{
 		"id":         id,
 		"token_type": "auth",
-		"level":      level,
+		"level":      strconv.Itoa(level),
 	}
 	jwtauth.SetExpiry(aTokenClaims, s.authTokenExpireTime())
 	_, authToken, _ := s.tokenAuth.Encode(aTokenClaims)
 	return authToken, s.authTokenExpireTime().String()
 }
 
-func (s *AuthService) getRefreshToken(id string, level string) (string, string) {
+func (s *AuthService) getRefreshToken(id string, level int) (string, string) {
 	rTokenClaims := map[string]interface{}{
 		"id":         id,
 		"token_type": "refresh",
-		"level":      level,
+		"level":      strconv.Itoa(level),
 	}
 	jwtauth.SetExpiry(rTokenClaims, s.refreshTokenExpireTime())
 	_, refreshToken, _ := s.tokenAuth.Encode(rTokenClaims)
@@ -85,7 +86,9 @@ func (s *AuthService) exchangeRefreshToken(tokenString string) (bool, string, st
 	if claims["token_type"] != "refresh" {
 		return false, "This is not s refresh token", ""
 	}
-	rToken, expirationTime := s.getRefreshToken(claims["id"].(string), claims["level"].(string))
+	levelStr := claims["level"].(string)
+	level, _ := strconv.Atoi(levelStr)
+	rToken, expirationTime := s.getRefreshToken(claims["id"].(string), level)
 	return true, rToken, expirationTime
 }
 
