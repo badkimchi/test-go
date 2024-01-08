@@ -7,7 +7,7 @@ package db
 import ()
 
 type Account struct {
-	Accountid int64  `json:"accountid"`
+	AccountID int64  `json:"account_id"`
 	Name      string `json:"name"`
 	Level     int32  `json:"level"`
 	Email     string `json:"email"`

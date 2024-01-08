@@ -1,7 +1,7 @@
 -- name: GetAccount :one
 SELECT *
 FROM Accounts
-WHERE AccountID = $1 LIMIT 1;
+WHERE Account_ID = $1 LIMIT 1;
 
 -- name: GetAccountByEmail :one
 SELECT *
@@ -18,9 +18,9 @@ UPDATE Accounts
 SET Name     = $2,
     Level    = $3,
     Email    = $4
-WHERE AccountID = $1;
+WHERE Account_ID = $1;
 
 -- name: DeleteAccount :exec
 DELETE
 FROM Accounts
-WHERE AccountID = $1;
+WHERE Account_ID = $1;

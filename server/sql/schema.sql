@@ -1,6 +1,6 @@
 CREATE TABLE Accounts
 (
-    AccountID BIGSERIAL PRIMARY KEY,
+    Account_ID BIGSERIAL PRIMARY KEY,
     Name      text NOT NULL,
     Level     integer DEFAULT 0 NOT NULL,
     Email     text NOT NULL
