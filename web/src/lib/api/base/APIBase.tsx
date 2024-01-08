@@ -21,7 +21,8 @@ export class APIBase {
         //Middleware run before request is sent.
         this.api.interceptors.request.use((param: InternalAxiosRequestConfig) => {
             // jwt
-            param.headers['Authorization'] = "Bearer " + loginInfoStore.getState().current?.authToken.token;
+            console.log(loginInfoStore.getState().current);
+            param.headers['Authorization'] = "Bearer " + loginInfoStore.getState().current?.jwt.token;
             return param
         });
 

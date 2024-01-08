@@ -84,15 +84,15 @@ func (c *Controller) Login(w http.ResponseWriter, r *http.Request) {
 	}
 
 	decoder = json.NewDecoder(apiResp.Body)
-	var info UserInfo
+	var info UserInfoDto
 	err = decoder.Decode(&info)
 	if err != nil {
 		resp.Bad(w, r, err)
 		return
 	}
 	level := "0"
-	t := c.serv.getToken(info.Email, level)
-	resp.Data(w, r, t)
+	info.Jwt = c.serv.getJwt(info.Email, level)
+	resp.Data(w, r, info)
 }
 
 func (c *Controller) RefreshWithRefreshToken(w http.ResponseWriter, r *http.Request) {

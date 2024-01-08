@@ -14,7 +14,9 @@ export const Home: React.FC = () => {
             .then((resp) => {
                 console.log(resp);
             })
-            .catch(err => console.error(err));
+            .catch(err => {
+                console.error(err)
+            });
     }, [])
 
     return (

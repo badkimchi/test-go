@@ -1,6 +1,6 @@
 package auth
 
-type UserInfo struct {
+type UserInfoDto struct {
 	Sub           string `json:"sub"`
 	Name          string `json:"name"`
 	GivenName     string `json:"given_name"`
@@ -9,13 +9,14 @@ type UserInfo struct {
 	Picture       string `json:"picture"`
 	Email         string `json:"email"`
 	Locale        string `json:"locale"`
+	Jwt           Jwt    `json:"jwt"`
 }
 
 type OAuthRequest struct {
 	Token string `json:"token"`
 }
 
-type Token struct {
+type Jwt struct {
 	Token        string       `json:"token"`
 	Expiration   string       `json:"expiration"` // expiration is already in the token but useful for frontend
 	RefreshToken RefreshToken `json:"refreshToken"`

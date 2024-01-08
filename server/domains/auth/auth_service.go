@@ -10,7 +10,7 @@ type IAuthService interface {
 	setAuthTokenDuration(duration time.Duration)
 	authTokenExpireTime() time.Time
 	refreshTokenExpireTime() time.Time
-	getToken(accountID string, level string) Token
+	getJwt(accountID string, level string) Jwt
 	//getAuthToken(id string, level string) (string, string)
 	//getRefreshToken(id string, level string) (string, string)
 	exchangeRefreshToken(tokenString string) (bool, string, string)
@@ -46,11 +46,11 @@ func (s *AuthService) refreshTokenExpireTime() time.Time {
 	return time.Now().Add(s.refreshTokenDuration)
 }
 
-func (s *AuthService) getToken(accountID string, level string) Token {
+func (s *AuthService) getJwt(accountID string, level string) Jwt {
 	authToken, expire := s.authToken(accountID, level)
 	refToken, refExpire := s.getRefreshToken(accountID, level)
 	rToken := RefreshToken{Token: refToken, Expiration: refExpire}
-	return Token{Token: authToken, Expiration: expire, RefreshToken: rToken}
+	return Jwt{Token: authToken, Expiration: expire, RefreshToken: rToken}
 }
 
 // LoginInfo id is embedded in
@@ -167,5 +167,5 @@ func (s *AuthService) exchangeRefreshToken(tokenString string) (bool, string, st
 //	if err != nil {
 //		return false, "", "", "", "", err
 //	}
-//	return s.getToken(accountID, acc.level)
+//	return s.getJwt(accountID, acc.level)
 //}

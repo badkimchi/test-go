@@ -13,8 +13,8 @@ func CorsHeaders() func(http.Handler) http.Handler {
 				"GET", "POST", "PUT", "DELETE", "PATCH", "HEAD", "OPTIONS",
 			},
 			AllowedHeaders: []string{
-				"X-PINGOTHER", "Accept", "Origin", "X-Auth-Token", "Authorization",
-				"Content-Type", "X-CSRF-Token", "Cache-Control", "Pragma",
+				"X-PINGOTHER", "Accept", "Origin", "X-Auth-Jwt", "Authorization",
+				"Content-Type", "X-CSRF-Jwt", "Cache-Control", "Pragma",
 			},
 			ExposedHeaders:   []string{"Link"},
 			AllowCredentials: true,

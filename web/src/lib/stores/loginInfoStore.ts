@@ -4,7 +4,7 @@ import {LoginInfo} from '../models/loginInfo.ts';
 
 type AccountState = {
     current: LoginInfo | null;
-    setUser: (account: LoginInfo) => void;
+    setUser: (info: LoginInfo) => void;
     logout: () => void;
 };
 
@@ -12,7 +12,7 @@ export const loginInfoStore = create(
     persist<AccountState>(
         (set, _) => ({
             current: null,
-            setUser: (account) => set({current: account}),
+            setUser: (info) => set({current: info}),
             logout: () => set({current: null}),
         }),
         {
